@@ -301,9 +301,15 @@
 
     <!-- MAPA COMPETITIVO -->
     <div class="sec">
-      <h2>⚔️ Mapa Competitivo <span class="tag" id="comp-tag">SENADO NACIONAL</span></h2>
-      <p class="desc">Partido ganador por departamento y posición de CREEMOS</p>
+      <h2>⚔️ Mapa Competitivo <span class="tag" id="comp-tag">SENADO NACIONAL 2026</span></h2>
+      <p class="desc" id="comp-desc">Partido ganador por departamento · candidato más votado · posición de CREEMOS <span style="color:#888;font-size:.72rem">(preconteo oficial Registraduría)</span></p>
       <div id="comp-map-wrap" style="min-height:80px"></div>
+      <p class="comp-nota" style="margin-top:12px;font-size:.72rem;color:#666;border-left:3px solid var(--mg);padding-left:10px">
+        <strong>Nota:</strong> Los mapas por polígonos no incluyen circunscripciones especiales <strong>Consulados</strong> (exterior,
+        ganador: <em>Centro Democrático</em> — 65.616 votos · 26,98%) ni <strong>San Andrés, Providencia y Santa Catalina</strong>
+        (ganador: <em>Partido Liberal</em> — 6.281 votos · 28,63%, candidato top: Leonardo Gallego Arroyave).
+        Estos resultados sí están incluidos en los agregados nacionales.
+      </p>
     </div>
 
     <div id="seccion-graficas"></div>
@@ -635,45 +641,47 @@ const DEP_CENTROIDS = {
 // ═══════════════════════════════════════════
 // DATOS COMPETITIVOS (embebidos — sin API)
 // ═══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// SENADO NACIONAL 2026 — Preconteo oficial Registraduría
+// Fuente: resultados.registraduria.gov.co (PDFs descargados 14/04/2026)
+// Nota: Consulados y San Andrés se reportan aparte (no en mapa polígonos)
+// ═══════════════════════════════════════════════════════════════
 const COMP_FALLBACK = {
-  "ANTIOQUIA":      {winner:"CENTRO DEMOCRATICO", winnerVotes:742902, creemosVotes:285354, creemosRank:3,
-    top5:[["CENTRO DEMOCRATICO",742902],["PACTO HISTORICO",394081],["CREEMOS",285354],["PARTIDO LIBERAL",223870],["PARTIDO CONSERVADOR",203995]]},
-  "BOGOTÁ D.C.":    {winner:"PACTO HISTORICO", winnerVotes:892000, creemosVotes:6282, creemosRank:9,
-    top5:[["PACTO HISTORICO",892000],["CENTRO DEMOCRATICO",445000],["PARTIDO LIBERAL",198000],["CAMBIO RADICAL",185000],["CREEMOS",6282]]},
-  "SANTANDER":      {winner:"CENTRO DEMOCRATICO", winnerVotes:148000, creemosVotes:3479, creemosRank:6,
-    top5:[["CENTRO DEMOCRATICO",148000],["PARTIDO LIBERAL",89000],["PARTIDO CONSERVADOR",72000],["CAMBIO RADICAL",58000],["CREEMOS",3479]]},
-  "VALLE":          {winner:"PACTO HISTORICO", winnerVotes:310000, creemosVotes:3003, creemosRank:8,
-    top5:[["PACTO HISTORICO",310000],["PARTIDO LIBERAL",180000],["CAMBIO RADICAL",142000],["CENTRO DEMOCRATICO",120000],["CREEMOS",3003]]},
-  "CUNDINAMARCA":   {winner:"PARTIDO CONSERVADOR", winnerVotes:98000, creemosVotes:2901, creemosRank:7,
-    top5:[["PARTIDO CONSERVADOR",98000],["CENTRO DEMOCRATICO",87000],["PARTIDO LIBERAL",71000],["PACTO HISTORICO",58000],["CREEMOS",2901]]},
-  "CÓRDOBA":        {winner:"PARTIDO LIBERAL", winnerVotes:118000, creemosVotes:2840, creemosRank:5,
-    top5:[["PARTIDO LIBERAL",118000],["PARTIDO CONSERVADOR",89000],["PACTO HISTORICO",62000],["CAMBIO RADICAL",48000],["CREEMOS",2840]]},
-  "ATLÁNTICO":      {winner:"PACTO HISTORICO", winnerVotes:192000, creemosVotes:1982, creemosRank:8,
-    top5:[["PACTO HISTORICO",192000],["CAMBIO RADICAL",135000],["PARTIDO LIBERAL",98000],["CENTRO DEMOCRATICO",87000],["CREEMOS",1982]]},
-  "QUINDÍO":        {winner:"CENTRO DEMOCRATICO", winnerVotes:48000, creemosVotes:1946, creemosRank:4,
-    top5:[["CENTRO DEMOCRATICO",48000],["PARTIDO LIBERAL",32000],["PARTIDO CONSERVADOR",28000],["CREEMOS",1946],["PACTO HISTORICO",14000]]},
-  "BOLÍVAR":        {winner:"PACTO HISTORICO", winnerVotes:142000, creemosVotes:1757, creemosRank:8,
-    top5:[["PACTO HISTORICO",142000],["CAMBIO RADICAL",98000],["PARTIDO LIBERAL",78000],["PARTIDO DE LA U",62000],["CREEMOS",1757]]},
-  "HUILA":          {winner:"PARTIDO LIBERAL", winnerVotes:82000, creemosVotes:1267, creemosRank:7,
-    top5:[["PARTIDO LIBERAL",82000],["CENTRO DEMOCRATICO",65000],["PARTIDO CONSERVADOR",55000],["PACTO HISTORICO",42000],["CREEMOS",1267]]},
-  "RISARALDA":      {winner:"CENTRO DEMOCRATICO", winnerVotes:55000, creemosVotes:1207, creemosRank:5,
-    top5:[["CENTRO DEMOCRATICO",55000],["PARTIDO LIBERAL",42000],["PARTIDO CONSERVADOR",38000],["CAMBIO RADICAL",28000],["CREEMOS",1207]]},
-  "MAGDALENA":      {winner:"PACTO HISTORICO", winnerVotes:108000, creemosVotes:1193, creemosRank:8,
-    top5:[["PACTO HISTORICO",108000],["PARTIDO LIBERAL",82000],["CAMBIO RADICAL",65000],["PARTIDO CONSERVADOR",52000],["CREEMOS",1193]]},
-  "CASANARE":       {winner:"PARTIDO CONSERVADOR", winnerVotes:42000, creemosVotes:1081, creemosRank:5,
-    top5:[["PARTIDO CONSERVADOR",42000],["CENTRO DEMOCRATICO",38000],["PARTIDO LIBERAL",32000],["CAMBIO RADICAL",22000],["CREEMOS",1081]]},
-  "CALDAS":         {winner:"PARTIDO CONSERVADOR", winnerVotes:52000, creemosVotes:1038, creemosRank:5,
-    top5:[["PARTIDO CONSERVADOR",52000],["CENTRO DEMOCRATICO",48000],["PARTIDO LIBERAL",38000],["CAMBIO RADICAL",25000],["CREEMOS",1038]]},
-  "SUCRE":          {winner:"PARTIDO LIBERAL", winnerVotes:68000, creemosVotes:997, creemosRank:7,
-    top5:[["PARTIDO LIBERAL",68000],["PARTIDO CONSERVADOR",52000],["PACTO HISTORICO",38000],["CAMBIO RADICAL",28000],["CREEMOS",997]]},
-  "TOLIMA":         {winner:"PARTIDO LIBERAL", winnerVotes:88000, creemosVotes:926, creemosRank:8,
-    top5:[["PARTIDO LIBERAL",88000],["CENTRO DEMOCRATICO",65000],["PARTIDO CONSERVADOR",58000],["PACTO HISTORICO",42000],["CREEMOS",926]]},
-  "NARIÑO":         {winner:"PACTO HISTORICO", winnerVotes:148000, creemosVotes:903, creemosRank:8,
-    top5:[["PACTO HISTORICO",148000],["PARTIDO LIBERAL",88000],["PARTIDO CONSERVADOR",72000],["CENTRO DEMOCRATICO",52000],["CREEMOS",903]]},
-  "N. DE SANTANDER":{winner:"CENTRO DEMOCRATICO", winnerVotes:98000, creemosVotes:860, creemosRank:5,
-    top5:[["CENTRO DEMOCRATICO",98000],["PARTIDO LIBERAL",72000],["PARTIDO CONSERVADOR",58000],["CAMBIO RADICAL",42000],["CREEMOS",860]]},
-  "CESAR":          {winner:"PARTIDO LIBERAL", winnerVotes:88000, creemosVotes:790, creemosRank:8,
-    top5:[["PARTIDO LIBERAL",88000],["PACTO HISTORICO",62000],["CAMBIO RADICAL",52000],["PARTIDO CONSERVADOR",42000],["CREEMOS",790]]}
+  "AMAZONAS": {winner:"PARTIDO LIBERAL COLOMBIANO", winnerVotes:7764, winnerPct:30.81, mesasPct:100, votantes:28720, creemosVotes:13, creemosRank:13, creemosTopCandidate:"WILDER ZAPATA TORRES", creemosTopCandidateVotes:3, winnerTopCandidate:"OSCAR HERNAN SANCHEZ LEON", winnerTopCandidateVotes:1380, deptTopCandidate:"OSCAR HERNAN SANCHEZ LEON", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:1380, top5:[["PARTIDO LIBERAL COLOMBIANO",7764],["PACTO HISTÓRICO SENADO",3183],["ALIANZA POR COLOMBIA",2716],["PARTIDO CENTRO DEMOCRÁTICO",2414],["PARTIDO CONSERVADOR COLOMBIANO",1975]]},
+  "ANTIOQUIA": {winner:"PARTIDO CENTRO DEMOCRÁTICO", winnerVotes:744372, winnerPct:31.83, mesasPct:99.86, votantes:2469550, creemosVotes:187708, creemosRank:5, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:87202, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:744372, deptTopCandidate:"JULIANA GUTIERREZ ZULUAGA", deptTopCandidateParty:"CREEMOS", deptTopCandidateVotes:87202, top5:[["PARTIDO CENTRO DEMOCRÁTICO",744372],["PACTO HISTÓRICO SENADO",392002],["PARTIDO CONSERVADOR COLOMBIANO",236575],["PARTIDO LIBERAL COLOMBIANO",233775],["CREEMOS",187708]]},
+  "ARAUCA": {winner:"PARTIDO LIBERAL COLOMBIANO", winnerVotes:18931, winnerPct:21.27, mesasPct:100, votantes:97495, creemosVotes:384, creemosRank:11, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:292, winnerTopCandidate:"JAIME ENRIQUE DURAN BARRERA", winnerTopCandidateVotes:2410, deptTopCandidate:"JAIRO ALBERTO CASTELLANOS SERRANO", deptTopCandidateParty:"ALIANZA POR COLOMBIA", deptTopCandidateVotes:5224, top5:[["PARTIDO LIBERAL COLOMBIANO",18931],["PARTIDO CENTRO DEMOCRÁTICO",16652],["ALIANZA POR COLOMBIA",13130],["PACTO HISTÓRICO SENADO",10634],["COALICIÓN CAMBIO RADICAL - ALMA",7906]]},
+  "ATLÁNTICO": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:285935, winnerPct:24.94, mesasPct:97.60, votantes:1216907, creemosVotes:1982, creemosRank:12, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:302, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:285935, deptTopCandidate:"YESSID ENRIQUE PULGAR DAZA", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:84779, top5:[["PACTO HISTÓRICO SENADO",285935],["PARTIDO LIBERAL COLOMBIANO",238289],["COALICIÓN CAMBIO RADICAL - ALMA",233658],["PARTIDO CONSERVADOR COLOMBIANO",89122],["ALIANZA POR COLOMBIA",61250]]},
+  "BOGOTÁ D.C.": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:929069, winnerPct:31.09, mesasPct:99.94, votantes:3063903, creemosVotes:6282, creemosRank:12, creemosTopCandidate:"ELIECER CAMACHO JIMENEZ", creemosTopCandidateVotes:1499, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:929069, deptTopCandidate:"CARLOS EDUARDO GUEVARA VILLABON", deptTopCandidateParty:"AHORA COLOMBIA", deptTopCandidateVotes:53682, top5:[["PACTO HISTÓRICO SENADO",929069],["PARTIDO CENTRO DEMOCRÁTICO",638925],["ALIANZA POR COLOMBIA",358915],["MOVIMIENTO SALVACIÓN NACIONAL",198276],["AHORA COLOMBIA",195588]]},
+  "BOLÍVAR": {winner:"PARTIDO CONSERVADOR COLOMBIANO", winnerVotes:220429, winnerPct:23.59, mesasPct:99.78, votantes:997846, creemosVotes:1757, creemosRank:11, creemosTopCandidate:"NATALIA EUGENIA LOPEZ FUENTES", creemosTopCandidateVotes:344, winnerTopCandidate:"NADYA GEORGETTE BLEL SCAFF", winnerTopCandidateVotes:138289, deptTopCandidate:"NADYA GEORGETTE BLEL SCAFF", deptTopCandidateParty:"PARTIDO CONSERVADOR COLOMBIANO", deptTopCandidateVotes:138289, top5:[["PARTIDO CONSERVADOR COLOMBIANO",220429],["PACTO HISTÓRICO SENADO",186671],["PARTIDO LIBERAL COLOMBIANO",176437],["COALICIÓN CAMBIO RADICAL - ALMA",106288],["ALIANZA POR COLOMBIA",55163]]},
+  "BOYACÁ": {winner:"ALIANZA POR COLOMBIA", winnerVotes:119757, winnerPct:23.78, mesasPct:99.96, votantes:533976, creemosVotes:673, creemosRank:12, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:161, winnerTopCandidate:"JOHN EDICKSON AMAYA RODRIGUEZ", winnerTopCandidateVotes:61430, deptTopCandidate:"JOHN EDICKSON AMAYA RODRIGUEZ", deptTopCandidateParty:"ALIANZA POR COLOMBIA", deptTopCandidateVotes:61430, top5:[["ALIANZA POR COLOMBIA",119757],["PACTO HISTÓRICO SENADO",97352],["PARTIDO CENTRO DEMOCRÁTICO",88829],["PARTIDO CONSERVADOR COLOMBIANO",40425],["PARTIDO LIBERAL COLOMBIANO",39616]]},
+  "CALDAS": {winner:"ALIANZA POR COLOMBIA", winnerVotes:75821, winnerPct:19.39, mesasPct:99.96, votantes:423340, creemosVotes:1038, creemosRank:11, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:245, winnerTopCandidate:"WILDER IBERSON ESCOBAR ORTIZ", winnerTopCandidateVotes:49206, deptTopCandidate:"WILDER IBERSON ESCOBAR ORTIZ", deptTopCandidateParty:"ALIANZA POR COLOMBIA", deptTopCandidateVotes:49206, top5:[["ALIANZA POR COLOMBIA",75821],["PARTIDO CENTRO DEMOCRÁTICO",72684],["PACTO HISTÓRICO SENADO",57508],["PARTIDO LIBERAL COLOMBIANO",48999],["AHORA COLOMBIA",33906]]},
+  "CAQUETÁ": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:24401, winnerPct:19.08, mesasPct:100, votantes:139579, creemosVotes:155, creemosRank:13, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:18, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:24401, deptTopCandidate:"CARLOS MARIO FARELO DAZA", deptTopCandidateParty:"COALICIÓN CAMBIO RADICAL - ALMA", deptTopCandidateVotes:6143, top5:[["PACTO HISTÓRICO SENADO",24401],["PARTIDO CENTRO DEMOCRÁTICO",21472],["PARTIDO LIBERAL COLOMBIANO",15319],["COALICIÓN CAMBIO RADICAL - ALMA",14983],["PARTIDO CONSERVADOR COLOMBIANO",14787]]},
+  "CASANARE": {winner:"PARTIDO CENTRO DEMOCRÁTICO", winnerVotes:53501, winnerPct:32.78, mesasPct:100, votantes:173357, creemosVotes:1081, creemosRank:10, creemosTopCandidate:"NELSON BARRERA ROA", creemosTopCandidateVotes:781, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:53501, deptTopCandidate:"MARIA EUGENIA LOPERA MONSALVE", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:5461, top5:[["PARTIDO CENTRO DEMOCRÁTICO",53501],["PACTO HISTÓRICO SENADO",23773],["ALIANZA POR COLOMBIA",18087],["PARTIDO LIBERAL COLOMBIANO",17786],["PARTIDO CONSERVADOR COLOMBIANO",11775]]},
+  "CAUCA": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:190865, winnerPct:44.47, mesasPct:99.48, votantes:463361, creemosVotes:509, creemosRank:13, creemosTopCandidate:"ANDRES FELIPE BEDOYA RENDON", creemosTopCandidateVotes:78, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:190865, deptTopCandidate:"LEONARDO DE JESUS GALLEGO ARROYAVE", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:16225, top5:[["PACTO HISTÓRICO SENADO",190865],["PARTIDO LIBERAL COLOMBIANO",68030],["PARTIDO CENTRO DEMOCRÁTICO",33349],["ALIANZA POR COLOMBIA",29830],["AHORA COLOMBIA",20450]]},
+  "CESAR": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:90762, winnerPct:19.63, mesasPct:99.71, votantes:497135, creemosVotes:790, creemosRank:11, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:205, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:90762, deptTopCandidate:"DIDIER LOBO CHINCHILLA", deptTopCandidateParty:"COALICIÓN CAMBIO RADICAL - ALMA", deptTopCandidateVotes:40980, top5:[["PACTO HISTÓRICO SENADO",90762],["COALICIÓN CAMBIO RADICAL - ALMA",65687],["PARTIDO CONSERVADOR COLOMBIANO",53159],["PARTIDO LIBERAL COLOMBIANO",43606],["PARTIDO CENTRO DEMOCRÁTICO",40752]]},
+  "CHOCÓ": {winner:"PARTIDO LIBERAL COLOMBIANO", winnerVotes:41673, winnerPct:24.72, mesasPct:95.93, votantes:186089, creemosVotes:705, creemosRank:11, creemosTopCandidate:"ANDRES FELIPE BEDOYA RENDON", creemosTopCandidateVotes:348, winnerTopCandidate:"LEONARDO DE JESUS GALLEGO ARROYAVE", winnerTopCandidateVotes:6292, deptTopCandidate:"GISSELA PALACIOS MOSQUERA", deptTopCandidateParty:"ALIANZA POR COLOMBIA", deptTopCandidateVotes:19075, top5:[["PARTIDO LIBERAL COLOMBIANO",41673],["ALIANZA POR COLOMBIA",41409],["PARTIDO CONSERVADOR COLOMBIANO",19831],["PACTO HISTÓRICO SENADO",15676],["FRENTE AMPLIO UNITARIO",5601]]},
+  "CUNDINAMARCA": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:291775, winnerPct:25.55, mesasPct:99.95, votantes:1202572, creemosVotes:2901, creemosRank:12, creemosTopCandidate:"ELIECER CAMACHO JIMENEZ", creemosTopCandidateVotes:780, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:291775, deptTopCandidate:"OSCAR HERNAN SANCHEZ LEON", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:52900, top5:[["PACTO HISTÓRICO SENADO",291775],["PARTIDO CENTRO DEMOCRÁTICO",203229],["PARTIDO LIBERAL COLOMBIANO",119054],["ALIANZA POR COLOMBIA",113540],["COALICIÓN CAMBIO RADICAL - ALMA",87654]]},
+  "CÓRDOBA": {winner:"PARTIDO DE LA U", winnerVotes:251344, winnerPct:29.07, mesasPct:98.21, votantes:907876, creemosVotes:2840, creemosRank:12, creemosTopCandidate:"NATALIA EUGENIA LOPEZ FUENTES", creemosTopCandidateVotes:1517, winnerTopCandidate:"JOHN MOISES BESAILE FAYAD", winnerTopCandidateVotes:88803, deptTopCandidate:"JOHN MOISES BESAILE FAYAD", deptTopCandidateParty:"PARTIDO DE LA U", deptTopCandidateVotes:88803, top5:[["PARTIDO DE LA U",251344],["PARTIDO CONSERVADOR COLOMBIANO",164331],["PACTO HISTÓRICO SENADO",120307],["PARTIDO LIBERAL COLOMBIANO",95038],["COALICIÓN CAMBIO RADICAL - ALMA",88276]]},
+  "GUAINÍA": {winner:"COALICIÓN CAMBIO RADICAL - ALMA", winnerVotes:2441, winnerPct:16.74, mesasPct:99.18, votantes:16571, creemosVotes:14, creemosRank:13, creemosTopCandidate:"ANDRES FELIPE BEDOYA RENDON", creemosTopCandidateVotes:5, winnerTopCandidate:"JOSE NICOLAS GOMEZ MEDINA", winnerTopCandidateVotes:1336, deptTopCandidate:"JOSE NICOLAS GOMEZ MEDINA", deptTopCandidateParty:"COALICIÓN CAMBIO RADICAL - ALMA", deptTopCandidateVotes:1336, top5:[["COALICIÓN CAMBIO RADICAL - ALMA",2441],["PARTIDO DE LA UNIÓN POR LA GENTE - PARTIDO DE LA U",2259],["PARTIDO LIBERAL COLOMBIANO",2088],["ALIANZA POR COLOMBIA",2075],["PACTO HISTÓRICO SENADO",2057]]},
+  "GUAVIARE": {winner:"PARTIDO CONSERVADOR COLOMBIANO", winnerVotes:8019, winnerPct:24.5, mesasPct:97.36, votantes:36300, creemosVotes:28, creemosRank:13, creemosTopCandidate:"ELIECER CAMACHO JIMENEZ", creemosTopCandidateVotes:3, winnerTopCandidate:"MARCOS DANIEL PINEDA GARCIA", winnerTopCandidateVotes:5006, deptTopCandidate:"MARCOS DANIEL PINEDA GARCIA", deptTopCandidateParty:"PARTIDO CONSERVADOR COLOMBIANO", deptTopCandidateVotes:5006, top5:[["PARTIDO CONSERVADOR COLOMBIANO",8019],["PARTIDO LIBERAL COLOMBIANO",4247],["PACTO HISTÓRICO SENADO",4218],["ALIANZA POR COLOMBIA",3424],["COALICIÓN CAMBIO RADICAL - ALMA",3151]]},
+  "HUILA": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:86206, winnerPct:21.47, mesasPct:100, votantes:428408, creemosVotes:1267, creemosRank:11, creemosTopCandidate:"NATALIA EUGENIA LOPEZ FUENTES", creemosTopCandidateVotes:668, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:86206, deptTopCandidate:"MARIA LUCIA VILLALBA GOMEZ", deptTopCandidateParty:"AHORA COLOMBIA", deptTopCandidateVotes:42552, top5:[["PACTO HISTÓRICO SENADO",86206],["PARTIDO CENTRO DEMOCRÁTICO",74191],["AHORA COLOMBIA",59578],["PARTIDO CONSERVADOR COLOMBIANO",35070],["ALIANZA POR COLOMBIA",31328]]},
+  "LA GUAJIRA": {winner:"PARTIDO CONSERVADOR COLOMBIANO", winnerVotes:56292, winnerPct:20.3, mesasPct:99.44, votantes:299092, creemosVotes:294, creemosRank:12, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:56, winnerTopCandidate:"WADITH ALBERTO MANZUR IMBETT", winnerTopCandidateVotes:14182, deptTopCandidate:"WADITH ALBERTO MANZUR IMBETT", deptTopCandidateParty:"PARTIDO CONSERVADOR COLOMBIANO", deptTopCandidateVotes:14182, top5:[["PARTIDO CONSERVADOR COLOMBIANO",56292],["PACTO HISTÓRICO SENADO",37377],["PARTIDO LIBERAL COLOMBIANO",21081],["COALICIÓN CAMBIO RADICAL - ALMA",15454],["ALIANZA POR COLOMBIA",11589]]},
+  "MAGDALENA": {winner:"PARTIDO LIBERAL COLOMBIANO", winnerVotes:102613, winnerPct:18.09, mesasPct:99.07, votantes:607780, creemosVotes:1193, creemosRank:12, creemosTopCandidate:"NATALIA EUGENIA LOPEZ FUENTES", creemosTopCandidateVotes:432, winnerTopCandidate:"YESSID ENRIQUE PULGAR DAZA", winnerTopCandidateVotes:28880, deptTopCandidate:"CARLOS MARIO FARELO DAZA", deptTopCandidateParty:"COALICIÓN CAMBIO RADICAL - ALMA", deptTopCandidateVotes:30672, top5:[["PARTIDO LIBERAL COLOMBIANO",102613],["PACTO HISTÓRICO SENADO",93918],["COALICIÓN CAMBIO RADICAL - ALMA",68107],["PARTIDO CONSERVADOR COLOMBIANO",50977],["PARTIDO CENTRO DEMOCRÁTICO",48632]]},
+  "META": {winner:"PARTIDO CENTRO DEMOCRÁTICO", winnerVotes:90941, winnerPct:21.66, mesasPct:99.92, votantes:444507, creemosVotes:641, creemosRank:12, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:107, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:90941, deptTopCandidate:"OSCAR EDUARDO APOLINAR MARTINEZ", deptTopCandidateParty:"ALIANZA POR COLOMBIA", deptTopCandidateVotes:28639, top5:[["PARTIDO CENTRO DEMOCRÁTICO",90941],["PACTO HISTÓRICO SENADO",75237],["ALIANZA POR COLOMBIA",68810],["COALICIÓN CAMBIO RADICAL - ALMA",34232],["PARTIDO LIBERAL COLOMBIANO",28749]]},
+  "N. DE SANTANDER": {winner:"PARTIDO LIBERAL COLOMBIANO", winnerVotes:167446, winnerPct:24.19, mesasPct:99.69, votantes:729623, creemosVotes:860, creemosRank:11, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:169, winnerTopCandidate:"ALIX YIRLEY VARGAS TORRADO", winnerTopCandidateVotes:92305, deptTopCandidate:"ALIX YIRLEY VARGAS TORRADO", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:92305, top5:[["PARTIDO LIBERAL COLOMBIANO",167446],["ALIANZA POR COLOMBIA",138398],["PARTIDO CONSERVADOR COLOMBIANO",89999],["PARTIDO CENTRO DEMOCRÁTICO",71938],["PACTO HISTÓRICO SENADO",42790]]},
+  "NARIÑO": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:169627, winnerPct:30.03, mesasPct:99.17, votantes:597325, creemosVotes:903, creemosRank:11, creemosTopCandidate:"ANDRES FELIPE BEDOYA RENDON", creemosTopCandidateVotes:298, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:169627, deptTopCandidate:"DIELA LILIANA BENAVIDES SOLARTE", deptTopCandidateParty:"PARTIDO CONSERVADOR COLOMBIANO", deptTopCandidateVotes:60238, top5:[["PACTO HISTÓRICO SENADO",169627],["PARTIDO CONSERVADOR COLOMBIANO",86302],["ALIANZA POR COLOMBIA",79983],["FRENTE AMPLIO UNITARIO",74528],["PARTIDO LIBERAL COLOMBIANO",39155]]},
+  "PUTUMAYO": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:43348, winnerPct:43.1, mesasPct:100, votantes:109325, creemosVotes:97, creemosRank:14, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:32, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:43348, deptTopCandidate:"DIELA LILIANA BENAVIDES SOLARTE", deptTopCandidateParty:"PARTIDO CONSERVADOR COLOMBIANO", deptTopCandidateVotes:4420, top5:[["PACTO HISTÓRICO SENADO",43348],["PARTIDO LIBERAL COLOMBIANO",10592],["PARTIDO CONSERVADOR COLOMBIANO",10223],["ALIANZA POR COLOMBIA",8715],["PARTIDO CENTRO DEMOCRÁTICO",6478]]},
+  "QUINDÍO": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:45487, winnerPct:19.57, mesasPct:100, votantes:248090, creemosVotes:1946, creemosRank:10, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:1077, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:45487, deptTopCandidate:"MANUEL ANTONIO VIRGUEZ PIRAQUIVE", deptTopCandidateParty:"AHORA COLOMBIA", deptTopCandidateVotes:11240, top5:[["PACTO HISTÓRICO SENADO",45487],["PARTIDO CENTRO DEMOCRÁTICO",44244],["PARTIDO LIBERAL COLOMBIANO",27705],["COALICIÓN CAMBIO RADICAL - ALMA",21971],["AHORA COLOMBIA",19436]]},
+  "RISARALDA": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:80468, winnerPct:20.71, mesasPct:99.96, votantes:416012, creemosVotes:1207, creemosRank:10, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:329, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:80468, deptTopCandidate:"MARIA IRMA NOREÑA ARBOLEDA", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:45414, top5:[["PACTO HISTÓRICO SENADO",80468],["PARTIDO CENTRO DEMOCRÁTICO",61520],["PARTIDO LIBERAL COLOMBIANO",59492],["ALIANZA POR COLOMBIA",37196],["AHORA COLOMBIA",24502]]},
+  "SAN ANDRÉS": {winner:"PARTIDO LIBERAL COLOMBIANO", winnerVotes:6281, winnerPct:28.63, mesasPct:100, votantes:24197, creemosVotes:73, creemosRank:11, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:16, winnerTopCandidate:"LEONARDO DE JESUS GALLEGO ARROYAVE", winnerTopCandidateVotes:1669, deptTopCandidate:"LEONARDO DE JESUS GALLEGO ARROYAVE", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:1669, top5:[["PARTIDO LIBERAL COLOMBIANO",6281],["PACTO HISTÓRICO SENADO",3867],["PARTIDO CONSERVADOR COLOMBIANO",1972],["PARTIDO CENTRO DEMOCRÁTICO",1901],["COALICIÓN CAMBIO RADICAL - ALMA",1872]]},
+  "SANTANDER": {winner:"PARTIDO CENTRO DEMOCRÁTICO", winnerVotes:170607, winnerPct:18.2, mesasPct:99.96, votantes:981929, creemosVotes:3479, creemosRank:11, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:2002, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:170607, deptTopCandidate:"LUIS EDUARDO DIAZ MATEUS", deptTopCandidateParty:"PARTIDO CONSERVADOR COLOMBIANO", deptTopCandidateVotes:54823, top5:[["PARTIDO CENTRO DEMOCRÁTICO",170607],["PACTO HISTÓRICO SENADO",156005],["ALIANZA POR COLOMBIA",123361],["PARTIDO LIBERAL COLOMBIANO",119414],["PARTIDO CONSERVADOR COLOMBIANO",102472]]},
+  "SUCRE": {winner:"PARTIDO LIBERAL COLOMBIANO", winnerVotes:118389, winnerPct:24.83, mesasPct:98.84, votantes:506270, creemosVotes:997, creemosRank:11, creemosTopCandidate:"NATALIA EUGENIA LOPEZ FUENTES", creemosTopCandidateVotes:236, winnerTopCandidate:"HECTOR OLIMPO ESPINOSA OLIVER", winnerTopCandidateVotes:71959, deptTopCandidate:"HECTOR OLIMPO ESPINOSA OLIVER", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:71959, top5:[["PARTIDO LIBERAL COLOMBIANO",118389],["ALIANZA POR COLOMBIA",83890],["PACTO HISTÓRICO SENADO",73184],["PARTIDO CONSERVADOR COLOMBIANO",51377],["PARTIDO CENTRO DEMOCRÁTICO",27370]]},
+  "TOLIMA": {winner:"PARTIDO CONSERVADOR COLOMBIANO", winnerVotes:154014, winnerPct:29.37, mesasPct:99.94, votantes:560102, creemosVotes:926, creemosRank:12, creemosTopCandidate:"ANDRES FELIPE BEDOYA RENDON", creemosTopCandidateVotes:194, winnerTopCandidate:"SANTIAGO BARRETO TRIANA", winnerTopCandidateVotes:63346, deptTopCandidate:"SANTIAGO BARRETO TRIANA", deptTopCandidateParty:"PARTIDO CONSERVADOR COLOMBIANO", deptTopCandidateVotes:63346, top5:[["PARTIDO CONSERVADOR COLOMBIANO",154014],["PACTO HISTÓRICO SENADO",100750],["PARTIDO CENTRO DEMOCRÁTICO",93610],["PARTIDO LIBERAL COLOMBIANO",38945],["ALIANZA POR COLOMBIA",29154]]},
+  "VALLE": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:617109, winnerPct:35.81, mesasPct:99.85, votantes:1799955, creemosVotes:3003, creemosRank:12, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:441, winnerTopCandidate:"NORMA HURTADO SANCHEZ", winnerTopCandidateVotes:95674, deptTopCandidate:"NORMA HURTADO SANCHEZ", deptTopCandidateParty:"PACTO HISTÓRICO SENADO", deptTopCandidateVotes:95674, top5:[["PACTO HISTÓRICO SENADO",617109],["PARTIDO CENTRO DEMOCRÁTICO",190181],["PARTIDO LIBERAL COLOMBIANO",134660],["ALIANZA POR COLOMBIA",109356],["COALICIÓN CAMBIO RADICAL - ALMA",103118]]},
+  "VAUPÉS": {winner:"PACTO HISTÓRICO SENADO", winnerVotes:2240, winnerPct:22.48, mesasPct:100, votantes:11848, creemosVotes:20, creemosRank:13, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:17, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:2240, deptTopCandidate:"JAIME ENRIQUE DURAN BARRERA", deptTopCandidateParty:"PARTIDO LIBERAL COLOMBIANO", deptTopCandidateVotes:787, top5:[["PACTO HISTÓRICO SENADO",2240],["PARTIDO LIBERAL COLOMBIANO",2125],["ALIANZA POR COLOMBIA",1546],["PARTIDO CONSERVADOR COLOMBIANO",677],["COALICIÓN CAMBIO RADICAL - ALMA",447]]},
+  "VICHADA": {winner:"PARTIDO LIBERAL COLOMBIANO", winnerVotes:4153, winnerPct:17.68, mesasPct:99.01, votantes:27483, creemosVotes:367, creemosRank:10, creemosTopCandidate:"LUIS ERNESTO RIVERA ESCOBAR", creemosTopCandidateVotes:311, winnerTopCandidate:"HORACIO JOSE SERPA MONCADA", winnerTopCandidateVotes:556, deptTopCandidate:"JUAN CARLOS GARCES ROJAS", deptTopCandidateParty:"ALIANZA POR COLOMBIA", deptTopCandidateVotes:1448, top5:[["PARTIDO LIBERAL COLOMBIANO",4153],["ALIANZA POR COLOMBIA",3538],["PARTIDO CENTRO DEMOCRÁTICO",2759],["PACTO HISTÓRICO SENADO",2650],["COALICIÓN CAMBIO RADICAL - ALMA",1641]]},
+  // ── CONSULADOS (no se muestra en mapa, referencia) ──
+  "CONSULADOS": {winner:"PARTIDO CENTRO DEMOCRÁTICO", winnerVotes:65616, winnerPct:26.98, mesasPct:98.70, votantes:245755, creemosVotes:1824, creemosRank:11, creemosTopCandidate:"JULIANA GUTIERREZ ZULUAGA", creemosTopCandidateVotes:704, winnerTopCandidate:"SOLO POR LA LISTA", winnerTopCandidateVotes:65616, deptTopCandidate:"ANA PAOLA AGUDELO GARCIA", deptTopCandidateParty:"AHORA COLOMBIA", deptTopCandidateVotes:16589, top5:[["PARTIDO CENTRO DEMOCRÁTICO",65616],["PACTO HISTÓRICO SENADO",57185],["MOVIMIENTO SALVACIÓN NACIONAL",34691],["AHORA COLOMBIA",28642],["ALIANZA POR COLOMBIA",17467]]}
 };
 
 // ═══════════════════════════════════════════
@@ -684,10 +692,13 @@ const PARTY_RULES = [
   ['PACTO HISTORICO','#E65100'],['COLOMBIA HUMANA','#E65100'],
   ['CENTRO DEMOCRATICO','#1565C0'],
   ['CONSERVADOR','#1a237e'],['LIBERAL','#b71c1c'],
-  ['CAMBIO RADICAL','#F57F17'],['PARTIDO DE LA U','#1B5E20'],
+  ['CAMBIO RADICAL','#F57F17'],['COALICION CAMBIO RADICAL','#F57F17'],
+  ['PARTIDO DE LA U','#1B5E20'],['UNION POR LA GENTE','#1B5E20'],
+  ['ALIANZA POR COLOMBIA','#5C6BC0'],
   ['VERDE','#2E7D32'],['ALIANZA VERDE','#2E7D32'],
   ['ASI','#6A1B9A'],['COMUNES','#BF360C'],
-  ['MIRA','#F57F17'],
+  ['MIRA','#F57F17'],['SALVACION NACIONAL','#795548'],
+  ['AHORA COLOMBIA','#00838F'],
 ];
 function getPartyColor(name){
   const u = normStr(name||'');
@@ -749,10 +760,17 @@ function setFiltro(f){
   document.getElementById('btn-SE').classList.toggle('active', f==='SE');
   document.getElementById('btn-CA').classList.toggle('active', f==='CA');
   const ct = document.getElementById('comp-tag');
-  if(ct) ct.textContent = f==='SE' ? 'SENADO NACIONAL' : 'CÁMARA · ANTIOQUIA';
+  if(ct) ct.textContent = f==='SE' ? 'SENADO NACIONAL 2026' : 'CÁMARA · ANTIOQUIA 2026';
+  const cd = document.getElementById('comp-desc');
+  if(cd) cd.innerHTML = f==='SE'
+    ? 'Partido ganador por departamento · candidato más votado · posición de CREEMOS <span style="color:#888;font-size:.72rem">(preconteo oficial Registraduría)</span>'
+    : 'Partido ganador por municipio · candidato más votado · posición de CREEMOS <span style="color:#888;font-size:.72rem">Cámara territorial · Antioquia · preconteo oficial Registraduría</span>';
   renderDynamic();
   if(geoData) renderMapa();
   else renderMapaCentroides();
+  // Reload competitive map for new filtro
+  compRendered = false;
+  loadCompetencia();
 }
 
 function resetFiltros(){
@@ -909,7 +927,7 @@ function renderMapaAntioquia(){
     if(!raw){
       // Fallback: burbujas con coordenadas embebidas
       geoMunis = 'fallback';
-      if(filtro==='CA') _drawAntioquia(el, 'fallback');
+      if(filtro==='CA') { _drawAntioquia(el, 'fallback'); renderCompMapCamara(); }
       return;
     }
 
@@ -945,7 +963,7 @@ function renderMapaAntioquia(){
       geoMunis = 'fallback';
     }
 
-    if(filtro==='CA') _drawAntioquia(el, geoMunis);
+    if(filtro==='CA') { _drawAntioquia(el, geoMunis); renderCompMapCamara(); }
   })();
 }
 
@@ -1211,8 +1229,12 @@ function renderMapLegend(maxV, colScale){
 // ═══════════════════════════════════════════
 function loadCompetencia(){
   compData = COMP_FALLBACK;
-  if(geoData) renderCompMap();
-  else renderCompMapCentroides();
+  if(filtro === 'CA'){
+    renderCompMapCamara();
+  } else {
+    if(geoData) renderCompMap();
+    else renderCompMapCentroides();
+  }
 }
 
 function renderCompMap(){
@@ -1272,9 +1294,20 @@ function renderCompMap(){
           const col=getPartyColor(nm), isC=isCreemos(nm);
           return `<div class="tt-row"><div class="tt-dot" style="background:${col}"></div><span style="${isC?'font-weight:700;color:var(--mg)':''}">${cap(nm.slice(0,26))}: ${fmt(v)}</span></div>`;
         }).join('');
-        tt.innerHTML=`<strong>${nombre}</strong>${topHtml}
+        const wtc = info.winnerTopCandidate && info.winnerTopCandidate!=='SOLO POR LA LISTA'
+          ? `<div style="margin-top:4px;font-size:.72rem;color:#444"><strong>🏆 Ganador:</strong> ${cap(info.winnerTopCandidate)} (${fmt(info.winnerTopCandidateVotes)})</div>`
+          : `<div style="margin-top:4px;font-size:.72rem;color:#444;font-style:italic">Lista cerrada</div>`;
+        const dtc = info.deptTopCandidate && info.deptTopCandidate!==info.winnerTopCandidate
+          ? `<div style="font-size:.72rem;color:#444"><strong>⭐ Top depto:</strong> ${cap(info.deptTopCandidate)} <span style="color:#888">(${cap((info.deptTopCandidateParty||'').slice(0,22))} · ${fmt(info.deptTopCandidateVotes)})</span></div>`
+          : '';
+        const ctc = info.creemosTopCandidate && info.creemosVotes>0
+          ? `<div style="font-size:.72rem;color:var(--mg);font-weight:600">CREEMOS: ${cap(info.creemosTopCandidate)} (${fmt(info.creemosTopCandidateVotes||0)})</div>`
+          : '';
+        tt.innerHTML=`<strong>${nombre}</strong>
+          <div style="font-size:.7rem;color:#888;margin-bottom:4px">Mesas ${info.mesasPct}% · ${fmt(info.votantes)} votantes</div>
+          ${topHtml}${wtc}${dtc}${ctc}
           <div style="margin-top:5px;font-size:.74rem;font-weight:700;${ganamos?'color:#1a7a40':'color:#b01020'}">
-            ${ganamos?'✅ CREEMOS lidera':'⬇ Dif: −'+fmt(diff)} · Pos #${info.creemosRank}</div>`;
+            ${ganamos?'✅ CREEMOS lidera':'⬇ Dif: −'+fmt(diff)} · Pos #${info.creemosRank||'—'}</div>`;
       }
       tt.style.display='block';
       tt.style.left=(event.clientX+18)+'px';
@@ -1337,9 +1370,12 @@ function renderCompMapCentroides(){
           const col=getPartyColor(nm),isC=isCreemos(nm);
           return`<div class="tt-row"><div class="tt-dot" style="background:${col}"></div><span style="${isC?'font-weight:700;color:var(--mg)':''}">${cap(nm.slice(0,24))}: ${fmt(v)}</span></div>`;
         }).join('');
-        tt.innerHTML=`<strong>${cap(dep)}</strong>${topHtml}
+        const wtc2 = info.winnerTopCandidate && info.winnerTopCandidate!=='SOLO POR LA LISTA'
+          ? `<div style="margin-top:4px;font-size:.72rem;color:#444"><strong>🏆</strong> ${cap(info.winnerTopCandidate)} (${fmt(info.winnerTopCandidateVotes)})</div>`
+          : `<div style="margin-top:4px;font-size:.72rem;color:#444;font-style:italic">Lista cerrada</div>`;
+        tt.innerHTML=`<strong>${cap(dep)}</strong>${topHtml}${wtc2}
           <div style="margin-top:5px;font-size:.74rem;font-weight:700;${ganamos?'color:#1a7a40':'color:#b01020'}">
-            ${ganamos?'✅ CREEMOS lidera':'⬇ Dif: −'+fmt(diff)} · Pos #${info.creemosRank}</div>`;
+            ${ganamos?'✅ CREEMOS lidera':'⬇ Dif: −'+fmt(diff)} · Pos #${info.creemosRank||'—'}</div>`;
         tt.style.display='block';
         tt.style.left=(event.clientX+16)+'px';
         tt.style.top=Math.max(10,event.clientY-80)+'px';
@@ -1357,14 +1393,55 @@ function renderCompMapCentroides(){
 }
 
 function renderCompRankTable(){
+  const rw=document.getElementById('comp-rank-wrap'); if(!rw) return;
+
+  if(filtro === 'CA'){
+    // Cámara: rank table by municipality
+    const rankData=Object.entries(ANT_MUNI_WINNERS)
+      .filter(([,i])=>i.creemosRank!=null)
+      .sort((a,b)=>a[1].creemosRank-b[1].creemosRank||b[1].creemosVotes-a[1].creemosVotes);
+    rw.innerHTML=`
+      <h3 style="font-size:.9rem;font-weight:700;color:var(--osc);margin-bottom:14px;display:flex;align-items:center;gap:9px">
+        Posición CREEMOS por municipio — Antioquia
+        <span style="background:var(--mgl);color:var(--mgc);font-size:.67rem;padding:2px 9px;border-radius:10px;font-weight:700">CÁMARA 2026 · OFICIAL</span>
+      </h3>
+      <div class="tw"><table id="tt-comp"></table></div>`;
+    const maxW=Math.max(...rankData.map(([,i])=>i.v),1);
+    mkTabla('tt-comp',
+      ['Municipio','Pos.','Votos CREEMOS','Top Candidato CREEMOS','Partido ganador','Votos ganador','Brecha'],
+      rankData.map(([muni,info])=>{
+        const r=info.creemosRank;
+        const rcls=r===1?'comp-table-rank-1':r<=3?'comp-table-rank-2':r<=5?'comp-table-rank-3':'comp-table-other';
+        const diff=info.v-info.creemosVotes;
+        const ganamos=diff<=0;
+        const barW=Math.round(info.creemosVotes/maxW*80);
+        const pctBar=info.v>0?((info.creemosVotes/info.v)*100).toFixed(0)+'%':'?';
+        const topC=info.creemosTopCandidate?cap(info.creemosTopCandidate.split(' ').slice(0,3).join(' ')):'—';
+        return `
+          <td><strong>${cap(muni)}</strong></td>
+          <td class="${rcls}" style="text-align:center">${r}°</td>
+          <td class="nc">${fmt(info.creemosVotes)}</td>
+          <td style="font-size:.73rem">${topC}</td>
+          <td style="font-size:.74rem">${cap(info.w.slice(0,24))}</td>
+          <td>${fmt(info.v)}</td>
+          <td style="font-weight:700;color:${ganamos?'#1a7a40':'var(--ro)'}">
+            ${ganamos?'✅ +'+fmt(Math.abs(diff)):'−'+fmt(diff)}
+            <span class="bar-comp" style="margin-left:6px;width:${barW}px;background:${ganamos?'#1a7a40':C.mg}"></span>
+            <small style="color:#888;font-weight:400"> ${pctBar}</small>
+          </td>`;
+      })
+    );
+    return;
+  }
+
+  // Senado: rank table by department
   const rankData=Object.entries(compData)
     .filter(([,i])=>i.creemosRank!=null)
     .sort((a,b)=>a[1].creemosRank-b[1].creemosRank);
-  const rw=document.getElementById('comp-rank-wrap'); if(!rw) return;
   rw.innerHTML=`
     <h3 style="font-size:.9rem;font-weight:700;color:var(--osc);margin-bottom:14px;display:flex;align-items:center;gap:9px">
       Posición CREEMOS por departamento
-      <span style="background:var(--mgl);color:var(--mgc);font-size:.67rem;padding:2px 9px;border-radius:10px;font-weight:700">SENADO 2026 · ESTIMADO</span>
+      <span style="background:var(--mgl);color:var(--mgc);font-size:.67rem;padding:2px 9px;border-radius:10px;font-weight:700">SENADO 2026 · OFICIAL</span>
     </h3>
     <div class="tw"><table id="tt-comp"></table></div>`;
   const maxW=rankData[0]?.[1]?.winnerVotes||1;
@@ -1390,6 +1467,122 @@ function renderCompRankTable(){
         </td>`;
     })
   );
+}
+
+// ═══════════════════════════════════════════
+// MAPA COMPETITIVO — CÁMARA ANTIOQUIA
+// ═══════════════════════════════════════════
+function renderCompMapCamara(){
+  const wrap = document.getElementById('comp-map-wrap');
+  if(!wrap) return;
+  compRendered = true;
+
+  // Build party color map from ANT_MUNI_WINNERS
+  const partyColorMap = {};
+  Object.values(ANT_MUNI_WINNERS).forEach(d=>{
+    if(d.w) partyColorMap[d.w] = getPartyColor(d.w);
+  });
+
+  wrap.innerHTML=`
+    <div class="comp-grid">
+      <div id="comp-svg-w" style="min-height:380px"></div>
+      <div>
+        <p class="legend-title">Partido ganador por municipio</p>
+        <div id="comp-legend"></div>
+        <p class="comp-nota" style="font-size:.7rem;color:#666;margin-top:10px">Hover sobre el municipio para ver candidato top y datos CREEMOS.</p>
+      </div>
+    </div>
+    <div id="comp-rank-wrap" style="margin-top:28px"></div>`;
+
+  const svgW = document.getElementById('comp-svg-w');
+  const tt = document.getElementById('map-tt');
+
+  // If geoMunis already loaded, render immediately
+  const drawCamara = (geo) => {
+    const W = svgW.clientWidth||380, H=Math.round(W*1.35);
+    svgW.innerHTML='';
+    const svg = d3.select(svgW).append('svg').attr('viewBox',`0 0 ${W} ${H}`).style('width','100%').style('height','auto');
+    const proj = d3.geoMercator().fitSize([W,H], geo);
+    const pathFn = d3.geoPath().projection(proj);
+
+    svg.selectAll('path').data(geo.features).join('path')
+      .attr('d', pathFn)
+      .style('stroke','#fff').style('stroke-width', f=>{
+        const nm = normStr(f.properties.MPIO_CNMBR||'');
+        const info = Object.entries(ANT_MUNI_WINNERS).find(([k])=>normStr(k)===nm);
+        return (info && info[1].creemosRank<=2) ? '2px' : '.4px';
+      })
+      .style('stroke', f=>{
+        const nm = normStr(f.properties.MPIO_CNMBR||'');
+        const info = Object.entries(ANT_MUNI_WINNERS).find(([k])=>normStr(k)===nm);
+        return (info && info[1].creemosRank<=2) ? '#FFD700' : '#fff';
+      })
+      .style('fill', f=>{
+        const nm = normStr(f.properties.MPIO_CNMBR||'');
+        const info = Object.entries(ANT_MUNI_WINNERS).find(([k])=>normStr(k)===nm);
+        return info ? getPartyColor(info[1].w) : '#ccc';
+      })
+      .style('cursor','pointer')
+      .on('mousemove', function(event, f){
+        const nm = normStr(f.properties.MPIO_CNMBR||'');
+        const info = Object.entries(ANT_MUNI_WINNERS).find(([k])=>normStr(k)===nm);
+        const nombre = f.properties.MPIO_CNMBR || cap(nm);
+        if(!info){
+          tt.innerHTML=`<strong>${nombre}</strong><div style="color:#aaa;font-size:.75rem">Sin datos</div>`;
+        } else {
+          const d = info[1];
+          const diff = d.v - d.creemosVotes;
+          const ganamos = diff <= 0;
+          const wtcHtml = d.winnerTopCandidate
+            ? `<div style="font-size:.72rem;color:#444;margin-top:3px"><strong>🏆</strong> ${cap(d.winnerTopCandidate)} (${fmt(d.winnerTopCandidateVotes)})</div>`
+            : `<div style="font-size:.72rem;color:#888;font-style:italic">Lista cerrada</div>`;
+          const muniTopHtml = (d.muniTopCandidate && d.muniTopCandidate !== d.winnerTopCandidate)
+            ? `<div style="font-size:.71rem;color:#555"><strong>⭐ Top muni:</strong> ${cap(d.muniTopCandidate)} <span style="color:#888">(${cap(d.muniTopCandidateParty||'').slice(0,20)} · ${fmt(d.muniTopCandidateVotes)})</span></div>`
+            : '';
+          const ctcHtml = d.creemosTopCandidate && d.creemosVotes > 0
+            ? `<div style="font-size:.71rem;color:var(--mg);font-weight:600">CREEMOS: ${cap(d.creemosTopCandidate)} (${fmt(d.creemosTopCandidateVotes||0)})</div>`
+            : '';
+          tt.innerHTML=`<strong>${nombre}</strong>
+            <div style="font-size:.7rem;color:#888;margin-bottom:3px">Mesas ${d.mesasPct}% · ${fmt(d.votantes)} votantes</div>
+            <div style="font-size:.74rem"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${getPartyColor(d.w)};margin-right:5px;vertical-align:middle"></span><strong>${cap(d.w)}</strong>: ${fmt(d.v)} (${d.p})</div>
+            ${wtcHtml}${muniTopHtml}${ctcHtml}
+            <div style="margin-top:5px;font-size:.74rem;font-weight:700;${ganamos?'color:#1a7a40':'color:#b01020'}">
+              ${ganamos?'✅ CREEMOS lidera':'⬇ Dif: −'+fmt(diff)} · Pos #${d.creemosRank||'—'}</div>`;
+        }
+        tt.style.display='block';
+        tt.style.left=(event.clientX+18)+'px';
+        tt.style.top=Math.max(10,event.clientY-80)+'px';
+      })
+      .on('mouseleave',()=>tt.style.display='none');
+
+    // Legend
+    const leg = document.getElementById('comp-legend');
+    if(leg){
+      const counts = {};
+      Object.values(ANT_MUNI_WINNERS).forEach(d=>{ counts[d.w]=(counts[d.w]||0)+1; });
+      leg.innerHTML = Object.entries(counts)
+        .sort((a,b)=>b[1]-a[1])
+        .map(([p,n])=>`<div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+          <div class="party-swatch" style="background:${getPartyColor(p)}"></div>
+          <span style="font-size:.71rem;line-height:1.4"><strong>${cap(p)}</strong><br><span style="color:#888">${n} municipio${n!==1?'s':''}</span></span>
+        </div>`).join('');
+    }
+
+    renderCompRankTable();
+  };
+
+  if(geoMunis){
+    drawCamara(geoMunis);
+  } else {
+    svgW.innerHTML='<p style="color:var(--med);font-size:.8rem;padding:8px">Cargando mapa de Antioquia...</p>';
+    const loadAndRender = async () => {
+      await renderMapaAntioquia();
+      setTimeout(()=>{
+        if(geoMunis){ wrap.innerHTML=''; renderCompMapCamara(); }
+      }, 800);
+    };
+    if(!geoMunisPending) loadAndRender();
+  }
 }
 
 // ═══════════════════════════════════════════
@@ -1483,6 +1676,17 @@ function renderCamara(){
 
   document.getElementById('seccion-graficas').innerHTML=`
     <div class="sec">
+      <h2>🗺️ Partido ganador por municipio <span class="tag">CÁMARA · ANTIOQUIA 2026</span></h2>
+      <p class="desc">Partido con mayor votación en cada uno de los 125 municipios de Antioquia · Cámara de Representantes 2026</p>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;margin-top:12px">
+        <div id="ca-muni-map-wrap" style="flex:0 0 auto;width:340px;max-width:100%"></div>
+        <div style="flex:1;min-width:180px">
+          <div id="ca-muni-legend" style="margin-bottom:16px"></div>
+          <div id="ca-muni-stats" style="font-size:.82rem;line-height:1.7;color:#444"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sec">
       <h2>Candidatos Cámara <span class="tag">ANTIOQUIA · 17 CANDIDATOS</span></h2>
       <p class="desc">Votos preferentes por candidato · circunscripción territorial de Antioquia</p>
       <canvas id="gc1"></canvas>
@@ -1493,6 +1697,7 @@ function renderCamara(){
       <canvas id="gc-pie" style="max-height:320px;max-width:420px;margin:0 auto;display:block;"></canvas>
     </div>`;
 
+  renderCompMapMunis('ca-muni-map-wrap','ca-muni-legend','ca-muni-stats');
   charts1.g1=mkChart('gc1','bar',CAMARA.map(c=>cap(c.candidato)),CAMARA.map(c=>c.votos),{horiz:true,colores:CAMARA.map((_,i)=>i===0?C.am:i===1?C.mg:i<4?C.mgl:'#ddb8d0')});
 
   // Pie chart de distribución
@@ -1680,140 +1885,155 @@ function selCand(i){
 // DATOS: GANADOR POR MUNICIPIO · CÁMARA ANTIOQUIA 2026
 // Fuente: Registraduría Nacional — preconteo final (99,76% mesas)
 // ═══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// CÁMARA ANTIOQUIA 2026 — Preconteo oficial Registraduría
+// Fuente: resultados.registraduria.gov.co (PDFs municipales 14/04/2026)
+// 125 municipios · Cámara territorial departamental
+// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
+// CÁMARA ANTIOQUIA 2026 — Preconteo oficial Registraduría
+// Fuente: resultados.registraduria.gov.co (PDFs municipales 14/04/2026)
+// 125 municipios · Cámara territorial departamental
+// ═══════════════════════════════════════════════════════════════
 const ANT_MUNI_WINNERS = {
-  "ABEJORRAL":{w:"CENTRO DEMOCRÁTICO",v:2820,p:"51,63%"},
-  "ABRIAQUI":{w:"PARTIDO CONSERVADOR",v:692,p:"66,60%"},
-  "ALEJANDRIA":{w:"PARTIDO LIBERAL",v:748,p:"35,23%"},
-  "AMAGA":{w:"CENTRO DEMOCRÁTICO",v:2570,p:"28,71%"},
-  "AMALFI":{w:"CENTRO DEMOCRÁTICO",v:871,p:"22,15%"},
-  "ANDES":{w:"CENTRO DEMOCRÁTICO",v:5881,p:"46,44%"},
-  "ANGELOPOLIS":{w:"PARTIDO LIBERAL",v:1695,p:"51,53%"},
-  "ANGOSTURA":{w:"CENTRO DEMOCRÁTICO",v:624,p:"30,26%"},
-  "ANORI":{w:"PARTIDO CONSERVADOR",v:712,p:"26,02%"},
-  "ANTIOQUIA":{w:"PARTIDO LIBERAL",v:2847,p:"31,04%"},
-  "ANZA":{w:"CENTRO DEMOCRÁTICO",v:611,p:"32,99%"},
-  "APARTADO":{w:"PACTO HISTÓRICO",v:13545,p:"31,52%"},
-  "ARBOLETES":{w:"PARTIDO LIBERAL",v:2919,p:"28,91%"},
-  "ARGELIA":{w:"CENTRO DEMOCRÁTICO",v:1214,p:"51,96%"},
-  "ARMENIA":{w:"PARTIDO LIBERAL",v:417,p:"27,91%"},
-  "BARBOSA":{w:"PARTIDO CONSERVADOR",v:4892,p:"26,04%"},
-  "BELLO":{w:"CENTRO DEMOCRÁTICO",v:60453,p:"39,35%"},
-  "BELMIRA":{w:"PARTIDO CONSERVADOR",v:1174,p:"47,30%"},
-  "BETANIA":{w:"PARTIDO LIBERAL",v:1812,p:"57,96%"},
-  "BETULIA":{w:"CENTRO DEMOCRÁTICO",v:2519,p:"61,42%"},
-  "BOLIVAR":{w:"CENTRO DEMOCRÁTICO",v:4785,p:"61,09%"},
-  "BRICEÑO":{w:"PARTIDO LIBERAL",v:596,p:"38,15%"},
-  "BURITICA":{w:"PARTIDO LIBERAL",v:2410,p:"60,87%"},
-  "CACERES":{w:"PARTIDO LIBERAL",v:3484,p:"48,26%"},
-  "CAICEDO":{w:"CENTRO DEMOCRÁTICO",v:1152,p:"43,58%"},
-  "CALDAS":{w:"PACTO HISTÓRICO",v:7163,p:"21,18%"},
-  "CAMPAMENTO":{w:"CREEMOS",v:485,p:"24,74%"},
-  "CARACOLI":{w:"PARTIDO CONSERVADOR",v:465,p:"27,59%"},
-  "CARAMANTA":{w:"PARTIDO CONSERVADOR",v:513,p:"28,37%"},
-  "CAREPA":{w:"PACTO HISTÓRICO",v:5519,p:"31,48%"},
-  "CARMEN DE VIBORAL":{w:"CENTRO DEMOCRÁTICO",v:6486,p:"27,30%"},
-  "CAROLINA":{w:"CENTRO DEMOCRÁTICO",v:560,p:"31,05%"},
-  "CAUCASIA":{w:"PACTO HISTÓRICO",v:8767,p:"32,84%"},
-  "CAÑASGORDAS":{w:"PARTIDO CONSERVADOR",v:2396,p:"35,85%"},
-  "CHIGORODO":{w:"PACTO HISTÓRICO",v:5097,p:"30,62%"},
-  "CISNEROS":{w:"PARTIDO LIBERAL",v:2125,p:"38,74%"},
-  "COCORNA":{w:"CENTRO DEMOCRÁTICO",v:2301,p:"36,96%"},
-  "CONCEPCION":{w:"CENTRO DEMOCRÁTICO",v:1295,p:"60,37%"},
-  "CONCORDIA":{w:"CENTRO DEMOCRÁTICO",v:1992,p:"45,32%"},
-  "COPACABANA":{w:"CENTRO DEMOCRÁTICO",v:8803,p:"26,78%"},
-  "DABEIBA":{w:"PARTIDO LIBERAL",v:3674,p:"57,55%"},
-  "DON MATIAS":{w:"CENTRO DEMOCRÁTICO",v:4061,p:"60,31%"},
-  "EBEJICO":{w:"CENTRO DEMOCRÁTICO",v:1659,p:"45,10%"},
-  "EL BAGRE":{w:"PARTIDO LIBERAL",v:2443,p:"20,60%"},
-  "ENTRERRIOS":{w:"CENTRO DEMOCRÁTICO",v:1275,p:"32,27%"},
-  "ENVIGADO":{w:"CENTRO DEMOCRÁTICO",v:51112,p:"41,45%"},
-  "FREDONIA":{w:"PARTIDO LIBERAL",v:1966,p:"30,76%"},
-  "FRONTINO":{w:"PARTIDO LIBERAL",v:1869,p:"36,79%"},
-  "GIRALDO":{w:"CENTRO DEMOCRÁTICO",v:910,p:"38,88%"},
-  "GIRARDOTA":{w:"CENTRO DEMOCRÁTICO",v:5791,p:"24,87%"},
-  "GOMEZ PLATA":{w:"CENTRO DEMOCRÁTICO",v:1435,p:"42,29%"},
-  "GRANADA":{w:"PARTIDO CONSERVADOR",v:1646,p:"41,29%"},
-  "GUADALUPE":{w:"PARTIDO LIBERAL",v:951,p:"48,22%"},
-  "GUARNE":{w:"CENTRO DEMOCRÁTICO",v:5835,p:"25,42%"},
-  "GUATAPE":{w:"CENTRO DEMOCRÁTICO",v:1643,p:"34,68%"},
-  "HELICONIA":{w:"PARTIDO CONSERVADOR",v:880,p:"37,80%"},
-  "HISPANIA":{w:"CENTRO DEMOCRÁTICO",v:890,p:"41,86%"},
-  "ITAGUI":{w:"CENTRO DEMOCRÁTICO",v:29774,p:"26,08%"},
-  "ITUANGO":{w:"PARTIDO LIBERAL",v:686,p:"21,72%"},
-  "JARDIN":{w:"CENTRO DEMOCRÁTICO",v:1829,p:"30,94%"},
-  "JERICO":{w:"CENTRO DEMOCRÁTICO",v:2452,p:"51,54%"},
-  "LA CEJA":{w:"CENTRO DEMOCRÁTICO",v:8952,p:"27,14%"},
-  "LA ESTRELLA":{w:"CENTRO DEMOCRÁTICO",v:12036,p:"37,88%"},
-  "LA PINTADA":{w:"PARTIDO LIBERAL",v:1015,p:"32,46%"},
-  "LA UNION":{w:"CENTRO DEMOCRÁTICO",v:2568,p:"27,32%"},
-  "LIBORINA":{w:"PARTIDO CONSERVADOR",v:1551,p:"43,14%"},
-  "MACEO":{w:"PARTIDO LIBERAL",v:1020,p:"28,24%"},
-  "MARINILLA":{w:"CENTRO DEMOCRÁTICO",v:9344,p:"35,77%"},
-  "MEDELLIN":{w:"CENTRO DEMOCRÁTICO",v:295629,p:"34,61%"},
-  "MONTEBELLO":{w:"CENTRO DEMOCRÁTICO",v:862,p:"37,92%"},
-  "MURINDO":{w:"PARTIDO LIBERAL",v:990,p:"68,75%"},
-  "MUTATA":{w:"PARTIDO LIBERAL",v:1543,p:"36,91%"},
-  "NARIÑO":{w:"CENTRO DEMOCRÁTICO",v:1522,p:"58,18%"},
-  "NECHI":{w:"COALICIÓN ALIANZA VERDE",v:3031,p:"44,50%"},
-  "NECOCLI":{w:"PARTIDO LIBERAL",v:3215,p:"22,74%"},
-  "OLAYA":{w:"CENTRO DEMOCRÁTICO",v:488,p:"37,94%"},
-  "PEQUE":{w:"PARTIDO LIBERAL",v:876,p:"36,03%"},
-  "PEÑOL":{w:"CENTRO DEMOCRÁTICO",v:3161,p:"40,27%"},
-  "PUEBLORRICO":{w:"CENTRO DEMOCRÁTICO",v:871,p:"32,28%"},
-  "PUERTO BERRIO":{w:"CENTRO DEMOCRÁTICO",v:2583,p:"23,29%"},
-  "PUERTO NARE":{w:"PARTIDO LIBERAL",v:2605,p:"49,18%"},
-  "PUERTO TRIUNFO":{w:"PARTIDO LIBERAL",v:1799,p:"32,21%"},
-  "REMEDIOS":{w:"PACTO HISTÓRICO",v:1395,p:"29,33%"},
-  "RETIRO":{w:"CENTRO DEMOCRÁTICO",v:7425,p:"57,58%"},
-  "RIONEGRO":{w:"CENTRO DEMOCRÁTICO",v:30400,p:"43,12%"},
-  "SABANALARGA":{w:"PARTIDO CONSERVADOR",v:2144,p:"62,16%"},
-  "SABANETA":{w:"CENTRO DEMOCRÁTICO",v:17871,p:"33,40%"},
-  "SALGAR":{w:"CENTRO DEMOCRÁTICO",v:1503,p:"42,30%"},
-  "SAN ANDRES":{w:"CENTRO DEMOCRÁTICO",v:751,p:"52,40%"},
-  "SAN CARLOS":{w:"CENTRO DEMOCRÁTICO",v:3115,p:"48,01%"},
-  "SAN FRANCISCO":{w:"PARTIDO CONSERVADOR",v:814,p:"40,19%"},
-  "SAN JERONIMO":{w:"PARTIDO LIBERAL",v:2328,p:"42,55%"},
-  "SAN JOSE DE LA MONTAÑA":{w:"PARTIDO CONSERVADOR",v:632,p:"52,66%"},
-  "SAN JUAN DE URABA":{w:"CENTRO DEMOCRÁTICO",v:2293,p:"28,14%"},
-  "SAN LUIS":{w:"CENTRO DEMOCRÁTICO",v:1840,p:"40,97%"},
-  "SAN PEDRO":{w:"CENTRO DEMOCRÁTICO",v:3794,p:"40,01%"},
-  "SAN PEDRO DE URABA":{w:"PARTIDO CONSERVADOR",v:3093,p:"28,82%"},
-  "SAN RAFAEL":{w:"CENTRO DEMOCRÁTICO",v:2138,p:"38,48%"},
-  "SAN ROQUE":{w:"CENTRO DEMOCRÁTICO",v:3887,p:"58,76%"},
-  "SAN VICENTE":{w:"CENTRO DEMOCRÁTICO",v:3426,p:"48,09%"},
-  "SANTA BARBARA":{w:"PARTIDO LIBERAL",v:2263,p:"27,15%"},
-  "SANTA FE DE ANTIOQUIA":{w:"PARTIDO LIBERAL",v:2847,p:"31,04%"},
-  "SANTA ROSA DE OSOS":{w:"CENTRO DEMOCRÁTICO",v:5132,p:"46,79%"},
-  "SANTO DOMINGO":{w:"CENTRO DEMOCRÁTICO",v:1887,p:"45,55%"},
-  "SANTUARIO":{w:"CENTRO DEMOCRÁTICO",v:9293,p:"59,60%"},
-  "SEGOVIA":{w:"PARTIDO LIBERAL",v:2502,p:"29,86%"},
-  "SONSON":{w:"CENTRO DEMOCRÁTICO",v:6328,p:"56,26%"},
-  "SOPETRAN":{w:"CENTRO DEMOCRÁTICO",v:3042,p:"51,00%"},
-  "TAMESIS":{w:"CENTRO DEMOCRÁTICO",v:2514,p:"38,64%"},
-  "TARAZA":{w:"PARTIDO LIBERAL",v:2259,p:"35,68%"},
-  "TARSO":{w:"CENTRO DEMOCRÁTICO",v:939,p:"38,23%"},
-  "TITIRIBI":{w:"CENTRO DEMOCRÁTICO",v:1117,p:"37,71%"},
-  "TOLEDO":{w:"CENTRO DEMOCRÁTICO",v:589,p:"42,19%"},
-  "TURBO":{w:"PACTO HISTÓRICO",v:9981,p:"26,79%"},
-  "URAMITA":{w:"PARTIDO CONSERVADOR",v:834,p:"35,00%"},
-  "URRAO":{w:"PARTIDO LIBERAL",v:1133,p:"34,14%"},
-  "VENECIA":{w:"CENTRO DEMOCRÁTICO",v:1472,p:"34,44%"},
-  "VIGIA DEL FUERTE":{w:"CENTRO DEMOCRÁTICO",v:1267,p:"38,81%"},
-  "YALI":{w:"CENTRO DEMOCRÁTICO",v:544,p:"28,64%"},
-  "YARUMAL":{w:"CENTRO DEMOCRÁTICO",v:3252,p:"29,02%"},
-  "YOLOMBO":{w:"PARTIDO LIBERAL",v:1469,p:"28,93%"},
-  "YONDO":{w:"PARTIDO LIBERAL",v:2485,p:"33,35%"},
-  "ZARAGOZA":{w:"PARTIDO LIBERAL",v:1889,p:"33,58%"}
+  "ABEJORRAL":{w:"CENTRO DEMOCRÁTICO",v:2820,p:"51,63%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:1402,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1402,creemosRank:4,creemosVotes:229,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:60,mesasPct:"100",votantes:5992},
+  "ABRIAQUÍ":{w:"PARTIDO CONSERVADOR",v:692,p:"66,6%",winnerTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",winnerTopCandidateVotes:399,muniTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:399,creemosRank:4,creemosVotes:58,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:34,mesasPct:"100",votantes:1096},
+  "ALEJANDRÍA":{w:"PARTIDO LIBERAL",v:748,p:"35,23%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:360,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:360,creemosRank:5,creemosVotes:148,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:59,mesasPct:"100",votantes:2293},
+  "AMAGÁ":{w:"CENTRO DEMOCRÁTICO",v:2570,p:"28,71%",winnerTopCandidate:"ANDRES FELIPE GUERRA HOYOS",winnerTopCandidateVotes:440,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:507,creemosRank:5,creemosVotes:789,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:260,mesasPct:"100",votantes:9599},
+  "AMALFI":{w:"CENTRO DEMOCRÁTICO",v:871,p:"22,15%",winnerTopCandidate:"ANDRES FELIPE GUERRA HOYOS",winnerTopCandidateVotes:139,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:436,creemosRank:6,creemosVotes:232,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:71,mesasPct:"100",votantes:4311},
+  "ANDES":{w:"CENTRO DEMOCRÁTICO",v:5881,p:"46,44%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:2191,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:2191,creemosRank:5,creemosVotes:692,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:175,mesasPct:"100",votantes:13747},
+  "ANGELÓPOLIS":{w:"PARTIDO LIBERAL",v:1695,p:"51,53%",winnerTopCandidate:"LUIS CARLOS OCHOA TOBON",winnerTopCandidateVotes:887,muniTopCandidate:"LUIS CARLOS OCHOA TOBON",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:887,creemosRank:6,creemosVotes:72,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:26,mesasPct:"100",votantes:3476},
+  "ANGOSTURA":{w:"CENTRO DEMOCRÁTICO",v:624,p:"30,26%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:131,muniTopCandidate:"NESTOR DAVID RESTREPO BONNETT",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:218,creemosRank:5,creemosVotes:124,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:39,mesasPct:"100",votantes:2400},
+  "ANORÍ":{w:"PARTIDO CONSERVADOR",v:712,p:"26,02%",winnerTopCandidate:"JAIME ALONSO CANO MARTINEZ",winnerTopCandidateVotes:315,muniTopCandidate:"NESTOR DAVID RESTREPO BONNETT",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:341,creemosRank:7,creemosVotes:37,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:8,mesasPct:"100",votantes:3066},
+  "ANZÁ":{w:"CENTRO DEMOCRÁTICO",v:611,p:"32,99%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:214,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:349,creemosRank:3,creemosVotes:193,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:101,mesasPct:"100",votantes:2080},
+  "APARTADÓ":{w:"PACTO HISTÓRICO",v:13545,p:"31,52%",winnerTopCandidate:"HERNAN MURIEL PEREZ",winnerTopCandidateVotes:0,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:2721,creemosRank:8,creemosVotes:861,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:264,mesasPct:"100",votantes:45387},
+  "ARBOLETES":{w:"PARTIDO LIBERAL",v:2919,p:"28,91%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:1919,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1919,creemosRank:8,creemosVotes:87,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:23,mesasPct:"100",votantes:10973},
+  "ARGELIA":{w:"CENTRO DEMOCRÁTICO",v:1214,p:"51,96%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:783,muniTopCandidate:"JHON JAIRO BERRIO LOPEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:783,creemosRank:3,creemosVotes:304,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:210,mesasPct:"100",votantes:2532},
+  "ARMENIA":{w:"PARTIDO LIBERAL",v:417,p:"27,91%",winnerTopCandidate:"NESTOR DAVID RESTREPO BONNETT",winnerTopCandidateVotes:197,muniTopCandidate:"NESTOR DAVID RESTREPO BONNETT",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:197,creemosRank:5,creemosVotes:145,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:63,mesasPct:"100",votantes:1681},
+  "BARBOSA":{w:"PARTIDO CONSERVADOR",v:4892,p:"26,04%",winnerTopCandidate:"JAIME ALONSO CANO MARTINEZ",winnerTopCandidateVotes:3376,muniTopCandidate:"JAIME ALONSO CANO MARTINEZ",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:3376,creemosRank:6,creemosVotes:902,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:199,mesasPct:"100",votantes:20313},
+  "BELLO":{w:"CENTRO DEMOCRÁTICO",v:60453,p:"39,35%",winnerTopCandidate:"MELISSA ORREGO EUSSE",winnerTopCandidateVotes:26826,muniTopCandidate:"MELISSA ORREGO EUSSE",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:26826,creemosRank:3,creemosVotes:13293,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:3141,mesasPct:"99.90",votantes:160351},
+  "BELMIRA":{w:"PARTIDO CONSERVADOR",v:1174,p:"47,3%",winnerTopCandidate:"JAIME ALONSO CANO MARTINEZ",winnerTopCandidateVotes:1010,muniTopCandidate:"JAIME ALONSO CANO MARTINEZ",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:1010,creemosRank:5,creemosVotes:61,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:18,mesasPct:"100",votantes:2595},
+  "BETANIA":{w:"PARTIDO LIBERAL",v:1812,p:"57,96%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:993,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:993,creemosRank:6,creemosVotes:97,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:26,mesasPct:"100",votantes:3363},
+  "BETULIA":{w:"CENTRO DEMOCRÁTICO",v:2519,p:"61,42%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:1044,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1044,creemosRank:6,creemosVotes:152,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:48,mesasPct:"100",votantes:4617},
+  "BOLÍVAR":{w:"CENTRO DEMOCRÁTICO",v:4785,p:"61,09%",winnerTopCandidate:"ANA LIGIA MORA MARTINEZ",winnerTopCandidateVotes:2222,muniTopCandidate:"ANA LIGIA MORA MARTINEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:2222,creemosRank:3,creemosVotes:638,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:292,mesasPct:"100",votantes:8438},
+  "BRICEÑO":{w:"PARTIDO LIBERAL",v:596,p:"38,15%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:360,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:360,creemosRank:4,creemosVotes:117,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:48,mesasPct:"100",votantes:1854},
+  "BURÍTICÁ":{w:"PARTIDO LIBERAL",v:2410,p:"60,87%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:1084,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1084,creemosRank:5,creemosVotes:94,creemosTopCandidate:"RODRIGO PATIÑO CORREA",creemosTopCandidateVotes:30,mesasPct:"100",votantes:4225},
+  "CAICEDO":{w:"CENTRO DEMOCRÁTICO",v:1152,p:"43,58%",winnerTopCandidate:"MELISSA ORREGO EUSSE",winnerTopCandidateVotes:663,muniTopCandidate:"MELISSA ORREGO EUSSE",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:663,creemosRank:6,creemosVotes:131,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:89,mesasPct:"100",votantes:2895},
+  "CALDAS":{w:"PACTO HISTÓRICO",v:7163,p:"21,18%",winnerTopCandidate:"HERNAN MURIEL PEREZ",winnerTopCandidateVotes:0,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:3851,creemosRank:4,creemosVotes:3110,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:892,mesasPct:"100",votantes:35951},
+  "CAMPAMENTO":{w:"CREEMOS",v:485,p:"24,74%",winnerTopCandidate:"GERMAN DARIO HOYOS GIRALDO",winnerTopCandidateVotes:393,muniTopCandidate:"GERMAN DARIO HOYOS GIRALDO",muniTopCandidateParty:"CREEMOS",muniTopCandidateVotes:393,creemosRank:1,creemosVotes:485,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:393,mesasPct:"100",votantes:2195},
+  "CARACOLÍ":{w:"PARTIDO CONSERVADOR",v:465,p:"27,59%",winnerTopCandidate:"NICOLAS ALBEIRO ECHEVERRY ALVARAN",winnerTopCandidateVotes:270,muniTopCandidate:"NICOLAS ALBEIRO ECHEVERRY ALVARAN",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:270,creemosRank:3,creemosVotes:273,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:164,mesasPct:"100",votantes:1819},
+  "CARAMANTA":{w:"PARTIDO CONSERVADOR",v:513,p:"28,37%",winnerTopCandidate:"JAIME ALONSO CANO MARTINEZ",winnerTopCandidateVotes:262,muniTopCandidate:"JAIME ALONSO CANO MARTINEZ",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:262,creemosRank:6,creemosVotes:51,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:20,mesasPct:"100",votantes:1973},
+  "CAREPA":{w:"PACTO HISTÓRICO",v:5519,p:"31,48%",winnerTopCandidate:"HERNAN MURIEL PEREZ",winnerTopCandidateVotes:0,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1820,creemosRank:8,creemosVotes:285,creemosTopCandidate:"REBECA MARIA CONTRERAS ABAD",creemosTopCandidateVotes:97,mesasPct:"100",votantes:18727},
+  "CAROLINA":{w:"CENTRO DEMOCRÁTICO",v:560,p:"31,05%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:218,muniTopCandidate:"JAIME ALONSO CANO MARTINEZ",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:304,creemosRank:6,creemosVotes:115,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:53,mesasPct:"100",votantes:1879},
+  "CAUCASIA":{w:"PACTO HISTÓRICO",v:8767,p:"32,84%",winnerTopCandidate:"HERNAN MURIEL PEREZ",winnerTopCandidateVotes:0,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:2255,creemosRank:7,creemosVotes:848,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:250,mesasPct:"99.59",votantes:29030},
+  "CAÑASGORDAS":{w:"PARTIDO CONSERVADOR",v:2396,p:"35,85%",winnerTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",winnerTopCandidateVotes:1847,muniTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:1847,creemosRank:5,creemosVotes:282,creemosTopCandidate:"CARLOS IGNACIO CUERVO VALENCIA",creemosTopCandidateVotes:122,mesasPct:"100",votantes:7089},
+  "CHIGORODÓ":{w:"PACTO HISTÓRICO",v:5097,p:"30,62%",winnerTopCandidate:"HERNAN MURIEL PEREZ",winnerTopCandidateVotes:0,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1377,creemosRank:8,creemosVotes:426,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:115,mesasPct:"99.39",votantes:17892},
+  "CISNEROS":{w:"PARTIDO LIBERAL",v:2125,p:"38,74%",winnerTopCandidate:"LUIS CARLOS OCHOA TOBON",winnerTopCandidateVotes:1452,muniTopCandidate:"LUIS CARLOS OCHOA TOBON",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1452,creemosRank:5,creemosVotes:157,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:74,mesasPct:"100",votantes:5847},
+  "COCORNÁ":{w:"CENTRO DEMOCRÁTICO",v:2301,p:"36,96%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:548,muniTopCandidate:"NICOLAS ALBEIRO ECHEVERRY ALVARAN",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:812,creemosRank:5,creemosVotes:346,creemosTopCandidate:"JOSE MIGUEL ZULUAGA MORA",creemosTopCandidateVotes:102,mesasPct:"100",votantes:6973},
+  "CONCEPCIÓN":{w:"CENTRO DEMOCRÁTICO",v:1295,p:"60,37%",winnerTopCandidate:"MELISSA ORREGO EUSSE",winnerTopCandidateVotes:867,muniTopCandidate:"MELISSA ORREGO EUSSE",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:867,creemosRank:4,creemosVotes:131,creemosTopCandidate:"JOSE MIGUEL ZULUAGA MORA",creemosTopCandidateVotes:42,mesasPct:"100",votantes:2278},
+  "CONCORDIA":{w:"CENTRO DEMOCRÁTICO",v:1992,p:"45,32%",winnerTopCandidate:"ANA LIGIA MORA MARTINEZ",winnerTopCandidateVotes:674,muniTopCandidate:"ANA LIGIA MORA MARTINEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:674,creemosRank:4,creemosVotes:345,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:207,mesasPct:"100",votantes:4811},
+  "COPACABANA":{w:"CENTRO DEMOCRÁTICO",v:8803,p:"26,78%",winnerTopCandidate:"MELISSA ORREGO EUSSE",winnerTopCandidateVotes:1437,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:2384,creemosRank:4,creemosVotes:4144,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:1082,mesasPct:"99.58",votantes:34471},
+  "CÁCERES":{w:"PARTIDO LIBERAL",v:3484,p:"48,26%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:1394,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1394,creemosRank:7,creemosVotes:228,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:142,mesasPct:"100",votantes:8053},
+  "DABEIBA":{w:"PARTIDO LIBERAL",v:3674,p:"57,55%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:1533,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1533,creemosRank:9,creemosVotes:77,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:19,mesasPct:"100",votantes:7103},
+  "DON MATÍAS":{w:"CENTRO DEMOCRÁTICO",v:4061,p:"60,31%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:3116,muniTopCandidate:"JHON JAIRO BERRIO LOPEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:3116,creemosRank:4,creemosVotes:483,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:235,mesasPct:"100",votantes:7144},
+  "EBÉJICO":{w:"CENTRO DEMOCRÁTICO",v:1659,p:"45,1%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:704,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:704,creemosRank:4,creemosVotes:246,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:79,mesasPct:"100",votantes:4026},
+  "EL BAGRE":{w:"PARTIDO LIBERAL",v:2443,p:"20,6%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:1414,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1414,creemosRank:6,creemosVotes:454,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:155,mesasPct:"99.23",votantes:13095},
+  "EL CARMEN DE VIBORAL":{w:"CENTRO DEMOCRÁTICO",v:6486,p:"27,3%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:1501,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1501,creemosRank:7,creemosVotes:1643,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:626,mesasPct:"100",votantes:25076},
+  "EL PEÑOL":{w:"CENTRO DEMOCRÁTICO",v:3161,p:"40,27%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:1425,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1425,creemosRank:2,creemosVotes:1449,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:1037,mesasPct:"100",votantes:8326},
+  "EL RETIRO":{w:"CENTRO DEMOCRÁTICO",v:7425,p:"57,58%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:2615,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:2615,creemosRank:2,creemosVotes:1318,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:446,mesasPct:"100",votantes:13282},
+  "ENTRERRÍOS":{w:"CENTRO DEMOCRÁTICO",v:1275,p:"32,27%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:513,muniTopCandidate:"JHON JAIRO BERRIO LOPEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:513,creemosRank:3,creemosVotes:569,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:261,mesasPct:"100",votantes:4170},
+  "ENVIGADO":{w:"CENTRO DEMOCRÁTICO",v:51112,p:"41,45%",winnerTopCandidate:"ANDRES FELIPE GUERRA HOYOS",winnerTopCandidateVotes:11924,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:14334,creemosRank:3,creemosVotes:15954,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:4061,mesasPct:"99.86",votantes:126440},
+  "FREDONIA":{w:"PARTIDO LIBERAL",v:1966,p:"30,76%",winnerTopCandidate:"LUIS CARLOS OCHOA TOBON",winnerTopCandidateVotes:807,muniTopCandidate:"LUIS CARLOS OCHOA TOBON",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:807,creemosRank:4,creemosVotes:453,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:190,mesasPct:"100",votantes:6859},
+  "FRONTINO":{w:"PARTIDO LIBERAL",v:1869,p:"36,79%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:753,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:753,creemosRank:6,creemosVotes:188,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:56,mesasPct:"100",votantes:5579},
+  "GIRALDO":{w:"CENTRO DEMOCRÁTICO",v:910,p:"38,88%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:574,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:574,creemosRank:5,creemosVotes:109,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:30,mesasPct:"100",votantes:2514},
+  "GIRARDOTA":{w:"CENTRO DEMOCRÁTICO",v:5791,p:"24,87%",winnerTopCandidate:"ANA LIGIA MORA MARTINEZ",winnerTopCandidateVotes:1299,muniTopCandidate:"ANA LIGIA MORA MARTINEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1299,creemosRank:3,creemosVotes:3060,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:988,mesasPct:"100",votantes:24741},
+  "GRANADA":{w:"PARTIDO CONSERVADOR",v:1646,p:"41,29%",winnerTopCandidate:"LUIS MIGUEL LOPEZ ARISTIZABAL",winnerTopCandidateVotes:755,muniTopCandidate:"LUIS MIGUEL LOPEZ ARISTIZABAL",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:755,creemosRank:4,creemosVotes:188,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:46,mesasPct:"100",votantes:4353},
+  "GUADALUPE":{w:"PARTIDO LIBERAL",v:951,p:"48,22%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:528,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:528,creemosRank:5,creemosVotes:78,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:40,mesasPct:"100",votantes:2132},
+  "GUARNE":{w:"CENTRO DEMOCRÁTICO",v:5835,p:"25,42%",winnerTopCandidate:"ANDRES FELIPE GUERRA HOYOS",winnerTopCandidateVotes:1001,muniTopCandidate:"FABIAN MARCELO BETANCUR RIVERA",muniTopCandidateParty:"AHORA COLOMBIA",muniTopCandidateVotes:3939,creemosRank:6,creemosVotes:1696,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:432,mesasPct:"100",votantes:24276},
+  "GUATAPÉ":{w:"CENTRO DEMOCRÁTICO",v:1643,p:"34,68%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:674,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:719,creemosRank:3,creemosVotes:606,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:353,mesasPct:"100",votantes:4941},
+  "GÓMEZ PLATA":{w:"CENTRO DEMOCRÁTICO",v:1435,p:"42,29%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:294,muniTopCandidate:"JAIME ALONSO CANO MARTINEZ",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:306,creemosRank:5,creemosVotes:166,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:36,mesasPct:"100",votantes:3690},
+  "HELICONIA":{w:"PARTIDO CONSERVADOR",v:880,p:"37,8%",winnerTopCandidate:"JAIME ALONSO CANO MARTINEZ",winnerTopCandidateVotes:727,muniTopCandidate:"JAIME ALONSO CANO MARTINEZ",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:727,creemosRank:6,creemosVotes:52,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:18,mesasPct:"100",votantes:2537},
+  "HISPANIA":{w:"CENTRO DEMOCRÁTICO",v:890,p:"41,86%",winnerTopCandidate:"MELISSA ORREGO EUSSE",winnerTopCandidateVotes:320,muniTopCandidate:"MELISSA ORREGO EUSSE",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:320,creemosRank:4,creemosVotes:140,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:32,mesasPct:"100",votantes:2290},
+  "ITAGÜÍ":{w:"CENTRO DEMOCRÁTICO",v:29774,p:"26,08%",winnerTopCandidate:"ANDRES FELIPE GUERRA HOYOS",winnerTopCandidateVotes:7214,muniTopCandidate:"JAIME ALONSO CANO MARTINEZ",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:16149,creemosRank:5,creemosVotes:11261,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:2665,mesasPct:"99.87",votantes:119333},
+  "ITUANGO":{w:"PARTIDO LIBERAL",v:686,p:"21,72%",winnerTopCandidate:"NESTOR DAVID RESTREPO BONNETT",winnerTopCandidateVotes:304,muniTopCandidate:"NESTOR DAVID RESTREPO BONNETT",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:304,creemosRank:5,creemosVotes:181,creemosTopCandidate:"JOSE MIGUEL ZULUAGA MORA",creemosTopCandidateVotes:32,mesasPct:"100",votantes:3783},
+  "JARDÍN":{w:"CENTRO DEMOCRÁTICO",v:1829,p:"30,94%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:299,muniTopCandidate:"HECTOR JAIME RENDON OSORIO",muniTopCandidateParty:"CREEMOS",muniTopCandidateVotes:1200,creemosRank:2,creemosVotes:1531,creemosTopCandidate:"HECTOR JAIME RENDON OSORIO",creemosTopCandidateVotes:1200,mesasPct:"100",votantes:6255},
+  "JERICÓ":{w:"CENTRO DEMOCRÁTICO",v:2452,p:"51,54%",winnerTopCandidate:"OSCAR DARIO PEREZ PINEDA",winnerTopCandidateVotes:1058,muniTopCandidate:"OSCAR DARIO PEREZ PINEDA",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1058,creemosRank:6,creemosVotes:263,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:75,mesasPct:"100",votantes:5209},
+  "LA CEJA":{w:"CENTRO DEMOCRÁTICO",v:8952,p:"27,14%",winnerTopCandidate:"ANA LIGIA MORA MARTINEZ",winnerTopCandidateVotes:1411,muniTopCandidate:"NELSON FERNANDO CARMONA LOPERA",muniTopCandidateParty:"AHORA COLOMBIA",muniTopCandidateVotes:5619,creemosRank:5,creemosVotes:2132,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:557,mesasPct:"100",votantes:34794},
+  "LA ESTRELLA":{w:"CENTRO DEMOCRÁTICO",v:12036,p:"37,88%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:3841,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:3841,creemosRank:3,creemosVotes:3130,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:1035,mesasPct:"99.02",votantes:33018},
+  "LA PINTADA":{w:"PARTIDO LIBERAL",v:1015,p:"32,46%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:421,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:421,creemosRank:7,creemosVotes:61,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:12,mesasPct:"100",votantes:3399},
+  "LA UNIÓN":{w:"CENTRO DEMOCRÁTICO",v:2568,p:"27,32%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:438,muniTopCandidate:"NELSON FERNANDO CARMONA LOPERA",muniTopCandidateParty:"AHORA COLOMBIA",muniTopCandidateVotes:1031,creemosRank:7,creemosVotes:284,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:58,mesasPct:"100",votantes:9953},
+  "LIBORINA":{w:"PARTIDO CONSERVADOR",v:1551,p:"43,14%",winnerTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",winnerTopCandidateVotes:490,muniTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:490,creemosRank:3,creemosVotes:346,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:236,mesasPct:"100",votantes:3866},
+  "MACEO":{w:"PARTIDO LIBERAL",v:1020,p:"28,24%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:476,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:566,creemosRank:3,creemosVotes:849,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:491,mesasPct:"100",votantes:3909},
+  "MARINILLA":{w:"CENTRO DEMOCRÁTICO",v:9344,p:"35,77%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:1987,muniTopCandidate:"LUIS MIGUEL LOPEZ ARISTIZABAL",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:2919,creemosRank:4,creemosVotes:3036,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:1319,mesasPct:"100",votantes:27440},
+  "MEDELLÍN":{w:"CENTRO DEMOCRÁTICO",v:295629,p:"34,61%",winnerTopCandidate:"ANDRES FELIPE GUERRA HOYOS",winnerTopCandidateVotes:59434,muniTopCandidate:"ANDRES FELIPE GUERRA HOYOS",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:59434,creemosRank:3,creemosVotes:164729,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:40535,mesasPct:"99.87",votantes:884995},
+  "MONTEBELLO":{w:"CENTRO DEMOCRÁTICO",v:862,p:"37,92%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:336,muniTopCandidate:"JHON JAIRO BERRIO LOPEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:336,creemosRank:6,creemosVotes:117,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:31,mesasPct:"100",votantes:2515},
+  "MURINDÓ":{w:"PARTIDO LIBERAL",v:990,p:"68,75%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:521,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:521,creemosRank:5,creemosVotes:34,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:19,mesasPct:"100",votantes:1600},
+  "MUTATÁ":{w:"PARTIDO LIBERAL",v:1543,p:"36,91%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:1057,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1057,creemosRank:9,creemosVotes:66,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:17,mesasPct:"100",votantes:4558},
+  "NARIÑO":{w:"CENTRO DEMOCRÁTICO",v:1522,p:"58,18%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:925,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:925,creemosRank:6,creemosVotes:57,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:15,mesasPct:"100",votantes:2882},
+  "NECHÍ":{w:"COALICIÓN ALIANZA VERDE",v:3031,p:"44,5%",winnerTopCandidate:"MARCOS JAVIER MADERA CAMERO",winnerTopCandidateVotes:2448,muniTopCandidate:"MARCOS JAVIER MADERA CAMERO",muniTopCandidateParty:"COALICIÓN ALIANZA VERDE",muniTopCandidateVotes:2448,creemosRank:7,creemosVotes:69,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:35,mesasPct:"100",votantes:7498},
+  "NECOCLÍ":{w:"PARTIDO LIBERAL",v:3215,p:"22,74%",winnerTopCandidate:"LUIS CARLOS OCHOA TOBON",winnerTopCandidateVotes:1434,muniTopCandidate:"LUIS CARLOS OCHOA TOBON",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1434,creemosRank:8,creemosVotes:256,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:80,mesasPct:"95.04",votantes:15898},
+  "OLAYA":{w:"CENTRO DEMOCRÁTICO",v:488,p:"37,94%",winnerTopCandidate:"MELISSA ORREGO EUSSE",winnerTopCandidateVotes:185,muniTopCandidate:"MELISSA ORREGO EUSSE",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:185,creemosRank:6,creemosVotes:86,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:38,mesasPct:"100",votantes:1388},
+  "PEQUE":{w:"PARTIDO LIBERAL",v:876,p:"36,03%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:527,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:527,creemosRank:5,creemosVotes:121,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:68,mesasPct:"100",votantes:2688},
+  "PUEBLORRICO":{w:"CENTRO DEMOCRÁTICO",v:871,p:"32,28%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:196,muniTopCandidate:"NICOLAS ALBEIRO ECHEVERRY ALVARAN",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:319,creemosRank:8,creemosVotes:69,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:21,mesasPct:"100",votantes:2944},
+  "PUERTO BERRÍO":{w:"CENTRO DEMOCRÁTICO",v:2583,p:"23,29%",winnerTopCandidate:"MELISSA ORREGO EUSSE",winnerTopCandidateVotes:994,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1057,creemosRank:5,creemosVotes:1126,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:459,mesasPct:"100",votantes:11913},
+  "PUERTO NARE-LA MAGDALENA":{w:"PARTIDO LIBERAL",v:2605,p:"49,18%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:962,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:962,creemosRank:4,creemosVotes:291,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:159,mesasPct:"100",votantes:5613},
+  "PUERTO TRIUNFO":{w:"PARTIDO LIBERAL",v:1799,p:"32,21%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:987,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:987,creemosRank:2,creemosVotes:1097,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:916,mesasPct:"100",votantes:6040},
+  "REMEDIOS":{w:"PACTO HISTÓRICO",v:1395,p:"29,33%",winnerTopCandidate:"HERNAN MURIEL PEREZ",winnerTopCandidateVotes:0,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:519,creemosRank:6,creemosVotes:145,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:38,mesasPct:"100",votantes:5154},
+  "RIONEGRO":{w:"CENTRO DEMOCRÁTICO",v:30400,p:"43,12%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:13103,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:13103,creemosRank:3,creemosVotes:9433,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:3672,mesasPct:"99.23",votantes:73450},
+  "SABANALARGA":{w:"PARTIDO CONSERVADOR",v:2144,p:"62,16%",winnerTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",winnerTopCandidateVotes:1746,muniTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:1746,creemosRank:5,creemosVotes:69,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:21,mesasPct:"100",votantes:3685},
+  "SABANETA":{w:"CENTRO DEMOCRÁTICO",v:17871,p:"33,4%",winnerTopCandidate:"ANDRES FELIPE GUERRA HOYOS",winnerTopCandidateVotes:3670,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:5718,creemosRank:2,creemosVotes:10077,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:3830,mesasPct:"99.32",votantes:54919},
+  "SALGAR":{w:"CENTRO DEMOCRÁTICO",v:1503,p:"42,3%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:398,muniTopCandidate:"LUIS CARLOS OCHOA TOBON",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:602,creemosRank:3,creemosVotes:362,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:237,mesasPct:"100",votantes:3832},
+  "SAN ANDRÉS DE CUERQUIA":{w:"CENTRO DEMOCRÁTICO",v:751,p:"52,4%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:425,muniTopCandidate:"JHON JAIRO BERRIO LOPEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:425,creemosRank:5,creemosVotes:55,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:15,mesasPct:"100",votantes:1605},
+  "SAN CARLOS":{w:"CENTRO DEMOCRÁTICO",v:3115,p:"48,01%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:2108,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:2108,creemosRank:5,creemosVotes:478,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:188,mesasPct:"100",votantes:7022},
+  "SAN FRANCISCO":{w:"PARTIDO CONSERVADOR",v:814,p:"40,19%",winnerTopCandidate:"JAIME ALONSO CANO MARTINEZ",winnerTopCandidateVotes:299,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:503,creemosRank:5,creemosVotes:77,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:28,mesasPct:"100",votantes:2286},
+  "SAN JERÓNIMO":{w:"PARTIDO LIBERAL",v:2328,p:"42,55%",winnerTopCandidate:"NESTOR DAVID RESTREPO BONNETT",winnerTopCandidateVotes:1532,muniTopCandidate:"NESTOR DAVID RESTREPO BONNETT",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1532,creemosRank:4,creemosVotes:367,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:144,mesasPct:"100",votantes:5884},
+  "SAN JOSÉ DE LA MONTAÑA":{w:"PARTIDO CONSERVADOR",v:632,p:"52,66%",winnerTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",winnerTopCandidateVotes:473,muniTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:473,creemosRank:5,creemosVotes:48,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:14,mesasPct:"100",votantes:1294},
+  "SAN JUAN DE URABÁ":{w:"CENTRO DEMOCRÁTICO",v:2293,p:"28,14%",winnerTopCandidate:"OSBALDO ANGULO DE LA ROSA",winnerTopCandidateVotes:869,muniTopCandidate:"LUIS CARLOS OCHOA TOBON",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1099,creemosRank:7,creemosVotes:249,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:159,mesasPct:"100",votantes:8983},
+  "SAN LUIS":{w:"CENTRO DEMOCRÁTICO",v:1840,p:"40,97%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:743,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:743,creemosRank:4,creemosVotes:318,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:171,mesasPct:"100",votantes:4837},
+  "SAN PEDRO DE LOS MILAGROS":{w:"CENTRO DEMOCRÁTICO",v:3794,p:"40,01%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:750,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:750,creemosRank:4,creemosVotes:992,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:339,mesasPct:"100",votantes:10161},
+  "SAN PEDRO DE URABÁ":{w:"PARTIDO CONSERVADOR",v:3093,p:"28,82%",winnerTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",winnerTopCandidateVotes:1733,muniTopCandidate:"JUAN CAMILO CALLEJAS TAMAYO",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:1733,creemosRank:7,creemosVotes:343,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:189,mesasPct:"98.93",votantes:11784},
+  "SAN RAFAEL":{w:"CENTRO DEMOCRÁTICO",v:2138,p:"38,48%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:1219,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1219,creemosRank:4,creemosVotes:581,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:216,mesasPct:"100",votantes:5986},
+  "SAN ROQUE":{w:"CENTRO DEMOCRÁTICO",v:3887,p:"58,76%",winnerTopCandidate:"MELISSA ORREGO EUSSE",winnerTopCandidateVotes:3088,muniTopCandidate:"MELISSA ORREGO EUSSE",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:3088,creemosRank:5,creemosVotes:316,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:113,mesasPct:"100",votantes:7113},
+  "SAN VICENTE FERRER":{w:"CENTRO DEMOCRÁTICO",v:3426,p:"48,09%",winnerTopCandidate:"JUAN DAVID ZULUAGA ZULUAGA",winnerTopCandidateVotes:1593,muniTopCandidate:"JUAN DAVID ZULUAGA ZULUAGA",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1593,creemosRank:6,creemosVotes:385,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:120,mesasPct:"100",votantes:7640},
+  "SANTA BÁRBARA":{w:"PARTIDO LIBERAL",v:2263,p:"27,15%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:1486,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1486,creemosRank:3,creemosVotes:1362,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:633,mesasPct:"100",votantes:8976},
+  "SANTA FE DE ANTIOQUIA":{w:"PARTIDO LIBERAL",v:2847,p:"31,04%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:2244,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:2244,creemosRank:5,creemosVotes:427,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:162,mesasPct:"100",votantes:9824},
+  "SANTA ROSA DE OSOS":{w:"CENTRO DEMOCRÁTICO",v:5132,p:"46,79%",winnerTopCandidate:"OSCAR DARIO PEREZ PINEDA",winnerTopCandidateVotes:1450,muniTopCandidate:"OSCAR DARIO PEREZ PINEDA",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1450,creemosRank:4,creemosVotes:1074,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:444,mesasPct:"100",votantes:12019},
+  "SANTO DOMINGO":{w:"CENTRO DEMOCRÁTICO",v:1887,p:"45,55%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:703,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:703,creemosRank:5,creemosVotes:223,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:51,mesasPct:"100",votantes:4620},
+  "SANTUARIO":{w:"CENTRO DEMOCRÁTICO",v:9293,p:"59,6%",winnerTopCandidate:"JUAN DAVID ZULUAGA ZULUAGA",winnerTopCandidateVotes:6582,muniTopCandidate:"JUAN DAVID ZULUAGA ZULUAGA",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:6582,creemosRank:4,creemosVotes:629,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:256,mesasPct:"98.95",votantes:16636},
+  "SEGOVIA":{w:"PARTIDO LIBERAL",v:2502,p:"29,86%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:1433,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1433,creemosRank:7,creemosVotes:190,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:48,mesasPct:"99.00",votantes:8972},
+  "SONSÓN":{w:"CENTRO DEMOCRÁTICO",v:6328,p:"56,26%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:3846,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:3846,creemosRank:4,creemosVotes:673,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:433,mesasPct:"100",votantes:12179},
+  "SOPETRÁN":{w:"CENTRO DEMOCRÁTICO",v:3042,p:"51,0%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:2150,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:2150,creemosRank:4,creemosVotes:289,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:94,mesasPct:"100",votantes:6294},
+  "TARAZÁ":{w:"PARTIDO LIBERAL",v:2259,p:"35,68%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:1001,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1001,creemosRank:7,creemosVotes:92,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:42,mesasPct:"100",votantes:7161},
+  "TARSO":{w:"CENTRO DEMOCRÁTICO",v:939,p:"38,23%",winnerTopCandidate:"MELISSA ORREGO EUSSE",winnerTopCandidateVotes:335,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:336,creemosRank:6,creemosVotes:59,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:18,mesasPct:"100",votantes:2687},
+  "TITIRIBÍ":{w:"CENTRO DEMOCRÁTICO",v:1117,p:"37,71%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:409,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:409,creemosRank:5,creemosVotes:253,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:61,mesasPct:"100",votantes:3236},
+  "TOLEDO":{w:"CENTRO DEMOCRÁTICO",v:589,p:"42,19%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:212,muniTopCandidate:"JHON JAIRO BERRIO LOPEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:212,creemosRank:5,creemosVotes:85,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:22,mesasPct:"100",votantes:1621},
+  "TURBO":{w:"PACTO HISTÓRICO",v:9981,p:"26,79%",winnerTopCandidate:"HERNAN MURIEL PEREZ",winnerTopCandidateVotes:0,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:2967,creemosRank:8,creemosVotes:452,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:135,mesasPct:"99.00",votantes:40885},
+  "TÁMESIS":{w:"CENTRO DEMOCRÁTICO",v:2514,p:"38,64%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:1208,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1208,creemosRank:5,creemosVotes:191,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:33,mesasPct:"100",votantes:6982},
+  "URAMITA":{w:"PARTIDO CONSERVADOR",v:834,p:"35,01%",winnerTopCandidate:"JAIME ALONSO CANO MARTINEZ",winnerTopCandidateVotes:573,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:597,creemosRank:6,creemosVotes:42,creemosTopCandidate:"CARLOS IGNACIO CUERVO VALENCIA",creemosTopCandidateVotes:9,mesasPct:"100",votantes:2585},
+  "URRAO":{w:"CENTRO DEMOCRÁTICO",v:2697,p:"40,61%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:656,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:656,creemosRank:5,creemosVotes:471,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:140,mesasPct:"100",votantes:7350},
+  "VALDIVIA":{w:"PARTIDO LIBERAL",v:741,p:"26,66%",winnerTopCandidate:"LUIS CARLOS OCHOA TOBON",winnerTopCandidateVotes:349,muniTopCandidate:"LUIS CARLOS OCHOA TOBON",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:349,creemosRank:4,creemosVotes:416,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:220,mesasPct:"100",votantes:3167},
+  "VALPARAÍSO":{w:"PARTIDO CONSERVADOR",v:800,p:"36,24%",winnerTopCandidate:"JAIME ALONSO CANO MARTINEZ",winnerTopCandidateVotes:566,muniTopCandidate:"JAIME ALONSO CANO MARTINEZ",muniTopCandidateParty:"PARTIDO CONSERVADOR",muniTopCandidateVotes:566,creemosRank:5,creemosVotes:57,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:12,mesasPct:"100",votantes:2408},
+  "VEGACHÍ":{w:"PARTIDO LIBERAL",v:1133,p:"34,14%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:677,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:677,creemosRank:6,creemosVotes:103,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:24,mesasPct:"100",votantes:3608},
+  "VENECIA":{w:"CENTRO DEMOCRÁTICO",v:1472,p:"34,44%",winnerTopCandidate:"ANDRES FELIPE GUERRA HOYOS",winnerTopCandidateVotes:325,muniTopCandidate:"NESTOR DAVID RESTREPO BONNETT",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:574,creemosRank:4,creemosVotes:347,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:101,mesasPct:"100",votantes:4602},
+  "VIGÍA DEL FUERTE":{w:"CENTRO DEMOCRÁTICO",v:1267,p:"38,81%",winnerTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",winnerTopCandidateVotes:1013,muniTopCandidate:"JOSE GREGORIO ORJUELA PEREZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:1013,creemosRank:4,creemosVotes:330,creemosTopCandidate:"EDWIN ANGOLA MENA",creemosTopCandidateVotes:129,mesasPct:"80.76",votantes:3389},
+  "YALÍ":{w:"CENTRO DEMOCRÁTICO",v:544,p:"28,64%",winnerTopCandidate:"ANA LIGIA MORA MARTINEZ",winnerTopCandidateVotes:271,muniTopCandidate:"ANA LIGIA MORA MARTINEZ",muniTopCandidateParty:"CENTRO DEMOCRÁTICO",muniTopCandidateVotes:271,creemosRank:6,creemosVotes:50,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:15,mesasPct:"100",votantes:2143},
+  "YARUMAL":{w:"CENTRO DEMOCRÁTICO",v:3252,p:"29,02%",winnerTopCandidate:"JHON JAIRO BERRIO LOPEZ",winnerTopCandidateVotes:870,muniTopCandidate:"SIMON MOLINA GOMEZ",muniTopCandidateParty:"CREEMOS",muniTopCandidateVotes:1228,creemosRank:2,creemosVotes:1952,creemosTopCandidate:"SIMON MOLINA GOMEZ",creemosTopCandidateVotes:1228,mesasPct:"100",votantes:12154},
+  "YOLOMBÓ":{w:"PARTIDO LIBERAL",v:1469,p:"28,93%",winnerTopCandidate:"DIVER NEY FRANCO TEJADA",winnerTopCandidateVotes:600,muniTopCandidate:"DIVER NEY FRANCO TEJADA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:600,creemosRank:5,creemosVotes:336,creemosTopCandidate:"GERMAN DARIO HOYOS GIRALDO",creemosTopCandidateVotes:188,mesasPct:"100",votantes:5528},
+  "YONDÓ":{w:"PARTIDO LIBERAL",v:2485,p:"33,35%",winnerTopCandidate:"NESTOR DAVID RESTREPO BONNETT",winnerTopCandidateVotes:1153,muniTopCandidate:"NESTOR DAVID RESTREPO BONNETT",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:1153,creemosRank:8,creemosVotes:66,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:19,mesasPct:"100",votantes:8005},
+  "ZARAGOZA":{w:"PARTIDO LIBERAL",v:1889,p:"33,58%",winnerTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",winnerTopCandidateVotes:934,muniTopCandidate:"CAMILO ANDRES GOMEZ MOSQUERA",muniTopCandidateParty:"PARTIDO LIBERAL",muniTopCandidateVotes:934,creemosRank:7,creemosVotes:87,creemosTopCandidate:"LUIS GUILLERMO PATIÑO ARISTIZABAL",creemosTopCandidateVotes:20,mesasPct:"100",votantes:6275}
 };
 
-function renderCompMapMunis(){
-  const el = document.getElementById('comp-muni-map-wrap');
+function renderCompMapMunis(wrapId, legId, statsId){
+  wrapId  = wrapId  || 'comp-muni-map-wrap';
+  legId   = legId   || 'comp-muni-legend';
+  statsId = statsId || 'comp-muni-stats';
+  const el = document.getElementById(wrapId);
   if(!el) return;
   if(!geoMunis){ // load on demand
     el.innerHTML = '<p style="color:var(--med);font-size:.8rem;padding:8px">Cargando mapa...</p>';
     const loadAndRender = async () => {
       await renderMapaAntioquia(); // triggers geoMunis load
-      setTimeout(renderCompMapMunis, 800);
+      setTimeout(() => renderCompMapMunis(wrapId, legId, statsId), 800);
     };
     if(!geoMunisPending) loadAndRender();
     return;
@@ -1838,7 +2058,16 @@ function renderCompMapMunis(){
 
   svg.selectAll('path').data(geoMunis.features).join('path')
     .attr('d', pathFn)
-    .style('stroke','#fff').style('stroke-width','.4px')
+    .style('stroke', f=>{
+      const nm = normStr(f.properties.MPIO_CNMBR||'');
+      const info = Object.entries(ANT_MUNI_WINNERS).find(([k])=>normStr(k)===nm);
+      return (info && info[1].creemosRank<=2) ? '#FFD700' : '#fff';
+    })
+    .style('stroke-width', f=>{
+      const nm = normStr(f.properties.MPIO_CNMBR||'');
+      const info = Object.entries(ANT_MUNI_WINNERS).find(([k])=>normStr(k)===nm);
+      return (info && info[1].creemosRank<=2) ? '2px' : '.4px';
+    })
     .style('fill', f => {
       const nm = normStr(f.properties.MPIO_CNMBR || '');
       const info = Object.entries(ANT_MUNI_WINNERS).find(([k]) => normStr(k) === nm);
@@ -1851,10 +2080,19 @@ function renderCompMapMunis(){
       if(!info) return;
       const [,d] = info;
       const rect = el.getBoundingClientRect();
+      const diff = d.v - d.creemosVotes;
+      const ganamos = diff <= 0;
+      const wtcHtml = d.winnerTopCandidate
+        ? `<br><span style="font-size:.69rem;color:#ccc">🏆 ${cap(d.winnerTopCandidate)} (${fmt(d.winnerTopCandidateVotes)})</span>`
+        : `<br><span style="font-size:.69rem;color:#ccc;font-style:italic">Lista cerrada</span>`;
+      const ctcHtml = d.creemosTopCandidate && d.creemosVotes > 0
+        ? `<br><span style="font-size:.69rem;color:#f5a8d8">CREEMOS: ${cap(d.creemosTopCandidate.split(' ').slice(0,2).join(' '))} (${fmt(d.creemosTopCandidateVotes||0)})</span>`
+        : '';
+      const rankHtml = `<br><span style="font-size:.69rem;color:${ganamos?'#6effa0':'#ff9999'};font-weight:700">${ganamos?'✅ CREEMOS lidera':'⬇ −'+fmt(diff)} · Pos #${d.creemosRank||'—'}</span>`;
       tt.style('display','block')
         .style('left',(event.clientX - rect.left + 8)+'px')
         .style('top',(event.clientY - rect.top - 10)+'px')
-        .html(`<strong>${f.properties.MPIO_CNMBR}</strong><br>${d.w}<br><strong>${d.p}</strong>`);
+        .html(`<strong>${f.properties.MPIO_CNMBR}</strong><br><span style="font-size:.69rem;color:#ccc">Mesas ${d.mesasPct}% · ${fmt(d.votantes)} vot.</span><br><span style="font-size:.71rem">${cap(d.w)}: <strong>${fmt(d.v)}</strong> (${d.p})</span>${wtcHtml}${ctcHtml}${rankHtml}`);
       if(this !== selPath) d3.select(this).style('stroke','#fff').style('stroke-width','1.5px').raise();
     })
     .on('mouseout', function(event, f){
@@ -1867,34 +2105,34 @@ function renderCompMapMunis(){
       d3.select(this).style('stroke','#FFD700').style('stroke-width','2px').raise();
       const nm = normStr(f.properties.MPIO_CNMBR || '');
       const info = Object.entries(ANT_MUNI_WINNERS).find(([k]) => normStr(k) === nm);
-      const statsEl = document.getElementById('comp-muni-stats');
+      const statsEl = document.getElementById(statsId);
       if(statsEl && info){
         const [,d] = info;
+        const wtcLine = d.winnerTopCandidate
+          ? `<div style="font-size:.72rem;margin-top:5px;opacity:.9">🏆 ${cap(d.winnerTopCandidate)} (${fmt(d.winnerTopCandidateVotes)})</div>`
+          : '';
+        const ctcLine = d.creemosTopCandidate && d.creemosVotes > 0
+          ? `<div style="font-size:.72rem;margin-top:4px;border-top:1px solid rgba(255,255,255,.2);padding-top:4px">CREEMOS: ${cap(d.creemosTopCandidate)} (${fmt(d.creemosTopCandidateVotes||0)}) · Pos #${d.creemosRank||'—'}</div>`
+          : '';
         statsEl.innerHTML = `<div style="background:${getPartyColor(d.w)};color:#fff;border-radius:6px;padding:10px 14px;margin-bottom:8px">
           <div style="font-size:1rem;font-weight:900">${f.properties.MPIO_CNMBR}</div>
           <div style="font-size:.78rem;opacity:.9">${d.w}</div>
-          <div style="font-size:1.2rem;font-weight:800;margin-top:4px">${d.p} del voto</div>
-          <div style="font-size:.72rem;opacity:.8">${(d.v).toLocaleString('es-CO')} votos</div>
+          <div style="font-size:1.2rem;font-weight:800;margin-top:4px">${d.p} del voto · ${fmt(d.v)} votos</div>
+          ${wtcLine}${ctcLine}
         </div>`;
       }
     });
 
-  // Legend
-  const legEl = document.getElementById('comp-muni-legend');
+  // Legend — dynamic from data
+  const legEl = document.getElementById(legId);
   if(legEl){
-    const parties = [
-      ['CENTRO DEMOCRÁTICO','#1565C0','67 municipios'],
-      ['PARTIDO LIBERAL','#b71c1c','33 municipios'],
-      ['PARTIDO CONSERVADOR','#1a237e','16 municipios'],
-      ['PACTO HISTÓRICO','#E65100','7 municipios'],
-      ['CREEMOS','#8C005F','1 municipio'],
-      ['COALICIÓN ALIANZA VERDE','#2E7D32','1 municipio'],
-    ];
-    legEl.innerHTML = '<div style="font-size:.72rem;font-weight:700;color:#666;margin-bottom:6px">GANADOR POR MUNICIPIO</div>' +
-      parties.map(([name,col,count])=>`
+    const counts = {};
+    Object.values(ANT_MUNI_WINNERS).forEach(d=>{ counts[d.w]=(counts[d.w]||0)+1; });
+    legEl.innerHTML = '<div style="font-size:.72rem;font-weight:700;color:#666;margin-bottom:6px">GANADOR POR MUNICIPIO · CÁMARA 2026</div>' +
+      Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([name,n])=>`
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
-          <div style="width:14px;height:14px;border-radius:3px;background:${col};flex-shrink:0"></div>
-          <div style="font-size:.72rem;color:#333;line-height:1.3"><strong>${name}</strong><br><span style="color:#888">${count}</span></div>
+          <div style="width:14px;height:14px;border-radius:3px;background:${getPartyColor(name)};flex-shrink:0"></div>
+          <div style="font-size:.72rem;color:#333;line-height:1.3"><strong>${cap(name)}</strong><br><span style="color:#888">${n} municipio${n!==1?'s':''}</span></div>
         </div>`).join('');
   }
 }
